@@ -6,7 +6,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: pink;
+  background-image: linear-gradient(to right,#0F2027 , #203A43, #2C5364);
   font-family: "Inter", sans-serif;
 }
 
@@ -32,7 +32,7 @@ nav ul {
   padding: 0;
 }
 footer {
-  background-color: #161616;
+  background-color: #1a1a1a;
   color: #aaaaaa;
   height: 74px;
   display: flex;
