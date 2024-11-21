@@ -22,6 +22,21 @@ header {
   display: flex;
   align-items: center;
   padding-block: 10px;
+  justify-content: space-between;
+  padding-inline: 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.media-player {
+  display: flex;
+  align-items: center;
+}
+
+.media-player audio {
+  width: 400px; 
+  height: 50px; 
 }
 
 nav {
