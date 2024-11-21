@@ -1,11 +1,17 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route} from "react-router-dom";
+import Layout from './components/Layout';
 
-import './App.css'
 
 function App() {
   return (
-    <>
-      <h1>Hello Pearl</h1>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
