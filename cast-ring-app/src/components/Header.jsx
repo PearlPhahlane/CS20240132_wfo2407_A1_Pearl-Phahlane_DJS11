@@ -1,9 +1,15 @@
 import { NavLink} from "react-router-dom";
+import logoImg from "../assets/cast-ring-logo2.png";
+
 
 
 export default function Header() {
   return (
     <header>
+      <div className="logo">
+        <img src={logoImg} />
+      </div>
+
       <div className="media-player">
         <audio controls>
           <source src="your-audio-file.mp3" type="audio/mpeg" />
