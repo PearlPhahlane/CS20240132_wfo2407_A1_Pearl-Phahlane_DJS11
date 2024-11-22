@@ -41,13 +41,11 @@ nav {
 
 nav a {
   text-decoration: none;
-  color: #fff3b0;;
+  color: #fff3b0;
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
 }
-
-
 
 nav a:hover {
   color: #ffd369; 
@@ -85,3 +83,116 @@ footer {
   background-color: #f4f4f4;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
+
+nav .hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+nav .hamburger div {
+  width: 30px;
+  height: 4px;
+  background-color: #fff;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+nav ul.active {
+  display: block;
+}
+
+nav ul li {
+  display: inline-block;
+}
+
+.close-btn {
+  display: none;
+}
+
+
+
+@media (max-width: 768px) {
+  
+  header {
+    justify-content: space-between;
+  }
+
+  .logo img {
+    max-width: 100px; 
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  nav a {
+    font-size: 15px;
+  }
+
+  nav a:hover {
+    color: inherit; /* Disable hover effects */
+  }
+
+  nav .hamburger {
+    display: flex;
+  }
+
+   nav ul {
+    display: none;
+    position: fixed; /* Ensures it covers the screen */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Covers the full height */
+    background-color: rgba(15, 32, 39, 0.9); /* Background color for fullscreen effect */
+    flex-direction: column;
+    align-items: center; /* Center the items */
+    justify-content: center; /* Center vertically */
+    gap: 50px;
+    padding: 20px;
+    z-index: 1000; /* Bring the menu above everything else */
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav ul li a {
+    padding: 10px 20px;
+    color: #fff;
+  }
+
+  nav ul.active {
+    display: flex;
+  }
+
+  .close-btn {
+    display: block; /* Display close button only on small screens */
+  }
+  
+
+  .media-player {
+    display: none; /* Hidden by default on smaller screens */
+  }
+
+  .media-player.active {
+    display: block; /* Show when audio is playing */
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+  }
+}
+
+  footer {
+    margin-top: 20px;
+  }
