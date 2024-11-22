@@ -32,6 +32,39 @@ header {
 .media-player {
   flex: 1; 
   text-align: center;
+  background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+.media-player audio::-webkit-media-controls-panel {
+  background: transparent; /* Allow gradient to show */
+}
+
+.media-player audio::-webkit-media-controls-play-button,
+.media-player audio::-webkit-media-controls-pause-button,
+.media-player audio::-webkit-media-controls-current-time-display,
+.media-player audio::-webkit-media-controls-time-remaining-display,
+.media-player audio::-webkit-media-controls-seek-back-button,
+.media-player audio::-webkit-media-controls-seek-forward-button,
+.media-player audio::-webkit-media-controls-mute-button,
+.media-player audio::-webkit-media-controls-volume-slider {
+  border-radius: 4px; /* Rounded buttons */
+}
+
+.media-player audio::-webkit-media-controls-timeline {
+  height: 4px;
+  border-radius: 2px;
+}
+
+.media-player.active {
+  display: block;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to right, #0F2027, #203A43, #2C5364); /* Fixed gradient */
+  opacity: 0.95; /* Slight transparency */
 }
 
 nav {

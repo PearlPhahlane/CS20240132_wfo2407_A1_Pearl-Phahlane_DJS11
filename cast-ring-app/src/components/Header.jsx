@@ -31,7 +31,7 @@ export default function Header() {
       </div>
 
       {/* Media Player Section */}
-      <div className="media-player">
+      <div className={`media-player ${isAudioPlaying ? "active" : ""}`}>
         <audio
           ref={audioRef}
           controls
