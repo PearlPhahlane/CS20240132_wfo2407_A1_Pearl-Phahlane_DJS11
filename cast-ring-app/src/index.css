@@ -7,7 +7,7 @@ body, html {
   padding: 0;
   height: 100%;
   background-image: linear-gradient(to right,#0F2027 , #203A43, #2C5364);
-  font-family: "Inter", sans-serif;
+  font-family: "Quicksand", sans-serif; 
 }
 
 .layout {
