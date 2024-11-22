@@ -2,6 +2,6 @@
 
 export default function Favorites() {
   return (
-    <h1>Okay Pearl</h1>
+    <h1>Favorites</h1>
   );
 }
