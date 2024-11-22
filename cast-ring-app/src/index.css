@@ -230,6 +230,35 @@ nav ul li {
   }
 }
 
+.carousel-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.carousel-container h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.podcast-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.podcast-item img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.podcast-item h3 {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  color: #fff;
+}
 
 /*Browser*/
 
