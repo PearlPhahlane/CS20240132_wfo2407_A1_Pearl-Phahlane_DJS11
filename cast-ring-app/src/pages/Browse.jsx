@@ -38,7 +38,7 @@ export default function Browse() {
     <div className="podcast-container">
       <h1 className="page-title">Browse ALL</h1>
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="loading">Loading...</div>
       ) : (
         <div className="podcast-grid">
           {podcasts.map((podcast) => (

@@ -274,6 +274,9 @@ nav ul li {
   background-color: #203a43;
 }
 
+.loading {
+  color:#ffd369;
+}
 
   footer {
     margin-top: 20px;
