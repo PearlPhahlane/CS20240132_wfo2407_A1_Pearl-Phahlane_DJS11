@@ -122,81 +122,89 @@ export default function PodcastPlayer({
 
 
     return (
-        <div className="podcast-player">
-            <audio 
-                ref={audioRef}
-                src={audioUrl}
-                className="hidden"
+      <div className="podcast-player">
+        <audio ref={audioRef} src={audioUrl} className="hidden" />
+        <div className="player-container">
+          {/*Episode information*/}
+          <div className="episode-info">
+            <img
+              src={episodeImage}
+              alt={episodeTitle}
+              className="episode-image"
             />
-            <div className="player-container">
-                {/*Episode information*/}
-                <div className="episode-info">
-                    <img
-                        src={episodeImage}
-                        alt={episodeTitle}
-                        className="episode-image"
-                    />
-                    <div className="episode-details">
-                        <div className="episode-title">{episodeTitle}</div>
-                        <div className="show-name">{showName}</div>
-                    </div>
-                </div>
-
-                {/* Player Controls */}
-                <div className="player-controls">
-                    <div className="main-controls">
-                        <button
-                            onClick={() => handleSkip(-30)}
-                            className="skip-button"
-                            title="Skip back 30 seconds"
-                        >
-                            <Rewind size={20} />
-                            <span className="skip-text">30</span>
-                        </button>
-                        <button
-                            onClick={handlePause}
-                            className="play-button"
-                        >
-                            {isPlaying ? (
-                                <pause size={24} />
-                            ) : (
-                                <play size={24} />
-                            )}
-                        </button>
-                        <button
-                            onClick={() => handleSkip(30)}
-                            className="skip-button"
-                            title="Skip forward 30 seconds"
-                        >
-                            <FastForward size={20}/>
-                            <span className="skip-text">30</span>
-                        </button>
-                    </div>
-                    {/* Progress bar */}
-                    <div className="progress-container">
-                        <span className="time-display">{formatTime(currentTime)}</span>
-                        <div
-                            ref={progressBarRef}
-                            onClick={handleTimeUpdate}
-                            className="progress-bar"
-                        >
-                            <div
-                                className="progress-fill"
-                                style={{width: `${(currentTime /duration) * 100}%`}}
-                            >
-                                <div className="progress-handle"></div>
-                            </div>
-                        </div>
-                        <span className="time-display">{formatTime(duration)}</span>
-                    </div>      
-                </div>
-                
-
+            <div className="episode-details">
+              <div className="episode-title">{episodeTitle}</div>
+              <div className="show-name">{showName}</div>
             </div>
+          </div>
 
+          {/* Player Controls */}
+          <div className="player-controls">
+            <div className="main-controls">
+              <button
+                onClick={() => handleSkip(-30)}
+                className="skip-button"
+                title="Skip back 30 seconds"
+              >
+                <Rewind size={20} />
+                <span className="skip-text">30</span>
+              </button>
+              <button onClick={handlePause} className="play-button">
+                {isPlaying ? <pause size={24} /> : <play size={24} />}
+              </button>
+              <button
+                onClick={() => handleSkip(30)}
+                className="skip-button"
+                title="Skip forward 30 seconds"
+              >
+                <FastForward size={20} />
+                <span className="skip-text">30</span>
+              </button>
+            </div>
+            {/* Progress bar */}
+            <div className="progress-container">
+              <span className="time-display">{formatTime(currentTime)}</span>
+              <div
+                ref={progressBarRef}
+                onClick={handleTimeUpdate}
+                className="progress-bar"
+              >
+                <div
+                  className="progress-fill"
+                  style={{ width: `${(currentTime / duration) * 100}%` }}
+                >
+                  <div className="progress-handle"></div>
+                </div>
+              </div>
+              <span className="time-display">{formatTime(duration)}</span>
+            </div>
+          </div>
 
+          {/* Volume and Speed controls */}
+
+          <div className="additional-controls">
+            {/* Playback speed */}
+            <div className="speed-control">
+              <button className="speed-button">
+                <Settings size={18} />
+                <span>{playbackRate}x</span>
+              </button>
+              <div className="speed-options">
+                {[0.5, 0.8, 1, 1.2, 1.5, 2].map((rate) => (
+                  <button
+                    key={rate}
+                    onClick={() => handlePlaybackRateChange(rate)}
+                    className={`speed-option ${playbackRate === rate ? "active" : ""}`}
+                  >
+                    {rate}x
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
-    )
+      </div>
+    );
 
 
 }
