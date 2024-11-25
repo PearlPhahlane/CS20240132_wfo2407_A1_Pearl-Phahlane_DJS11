@@ -201,10 +201,25 @@ export default function PodcastPlayer({
                 ))}
               </div>
             </div>
+
+            {/* Volume Control */}
+
+            <div className="volume-control">
+              <button onClick={toggleMute} className="volume-button">
+                {isMute ? <VolumeX sixe={20} /> : <Volume2 size={20} />}
+              </button>
+              <input
+                type="range"
+                min="0"
+                max="1"
+                step="0.1"
+                value={isMute ? 0 : volume}
+                onChange={newVolumeChange}
+                className="volume-slider"
+              />
+            </div>
           </div>
         </div>
       </div>
     );
-
-
-}
+};
