@@ -8,8 +8,8 @@ import {
     Rewind,
     FastForward
 } from "lucide-react";
-
 import PropTypes from "prop-types";
+import './podcastPlayer.css';
 
 export default function PodcastPlayer({ 
   audioUrl, 
