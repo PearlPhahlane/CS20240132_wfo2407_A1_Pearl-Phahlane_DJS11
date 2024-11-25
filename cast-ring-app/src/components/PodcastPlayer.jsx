@@ -172,8 +172,23 @@ export default function PodcastPlayer({
                             <span className="skip-text">30</span>
                         </button>
                     </div>
-
-                    
+                    {/* Progress bar */}
+                    <div className="progress-container">
+                        <span className="time-display">{formatTime(currentTime)}</span>
+                        <div
+                            ref={progressBarRef}
+                            onClick={handleTimeUpdate}
+                            className="progress-bar"
+                        >
+                            <div
+                                className="progress-fill"
+                                style={{width: `${(currentTime /duration) * 100}%`}}
+                            >
+                                <div className="progress-handle"></div>
+                            </div>
+                        </div>
+                        <span className="time-display">{formatTime(duration)}</span>
+                    </div>      
                 </div>
                 
 
