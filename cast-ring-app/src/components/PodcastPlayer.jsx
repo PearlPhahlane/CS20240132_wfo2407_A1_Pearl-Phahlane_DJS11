@@ -91,6 +91,18 @@ export default function PodcastPlayer({
         setIsMute(newVolume === 0);
     };
 
+    //toggle for mute
+
+    const toggleMute = () => {
+        if(isMute) {
+            audioRef.current.volume = volume;
+            setIsMute(false);
+        } else {
+            audioRef.current.volume = 0;
+            setIsMute(true)
+        }
+    };
+
     
 
 
