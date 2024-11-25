@@ -103,7 +103,16 @@ export default function PodcastPlayer({
         }
     };
 
-    
+    //handle skip in seconds
+
+ const handleSkip = (second) => {
+    const newTime = audioRef.current.currentTime + seconds;
+    audioRef.current.currentTime = Math.max(0, Math.min(newTime, duration));
+ };
+
+ 
+
+
 
 
 
