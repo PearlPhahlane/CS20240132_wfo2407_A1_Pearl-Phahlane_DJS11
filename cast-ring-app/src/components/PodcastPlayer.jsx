@@ -105,14 +105,20 @@ export default function PodcastPlayer({
 
     //handle skip in seconds
 
- const handleSkip = (second) => {
-    const newTime = audioRef.current.currentTime + seconds;
-    audioRef.current.currentTime = Math.max(0, Math.min(newTime, duration));
- };
-
- 
+    const handleSkip = (second) => {
+        const newTime = audioRef.current.currentTime + seconds;
+        audioRef.current.currentTime = Math.max(0, Math.min(newTime, duration));
+    };
 
 
+    //play back rate 
+
+    const handlePlaybackRateChange = (rate) => {
+        audioRef.current.playbackRate = rate;
+        setPlayBackRate(rate);
+    };
+
+    const playbackRates = [0.5, 0.8, 1, 1.2, 1.5, 2];
 
 
 
