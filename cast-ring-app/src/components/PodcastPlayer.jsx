@@ -9,6 +9,8 @@ import {
     FastForward
 } from "lucide-react";
 
+import PropTypes from "prop-types";
+
 export default function PodcastPlayer({ 
   audioUrl, 
   episodeTitle = "Unknown Episode", 
@@ -222,4 +224,19 @@ export default function PodcastPlayer({
         </div>
       </div>
     );
+};
+
+// Prop validation using PropTypes
+PodcastPlayer.propTypes = {
+  audioUrl: PropTypes.string.isRequired, // audio URL is required
+  episodeTitle: PropTypes.string, // episode title is optional
+  showName: PropTypes.string, // show name is optional
+  episodeImage: PropTypes.string, // episode image URL is optional
+};
+
+// Set default props
+PodcastPlayer.defaultProps = {
+  episodeTitle: "Unknown Episode", // Default title if not passed
+  showName: "Unknown Show", // Default show name if not passed
+  episodeImage: "/api/placeholder/60/60", // Default image if not passed
 };
