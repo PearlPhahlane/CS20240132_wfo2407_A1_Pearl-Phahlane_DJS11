@@ -1,12 +1,12 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logoImg from "../assets/cast-ring-logo2.png";
+import PodcastPlayer from "./PodcastPlayer";
 
 export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle the menu
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false); // State to control media player visibility
-  const audioRef = useRef(null); // Ref for the audio element
+ 
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen); // Toggle the menu state
@@ -16,13 +16,6 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
-   const handleAudioPlay = () => {
-     setIsAudioPlaying(true); // Show media player when audio is playing
-   };
-
-   const handleAudioPause = () => {
-     setIsAudioPlaying(false); // Hide media player when audio is paused
-   };
 
   return (
     <header>
@@ -31,16 +24,13 @@ export default function Header() {
       </div>
 
       {/* Media Player Section */}
-      <div className={`media-player ${isAudioPlaying ? "active" : ""}`}>
-        <audio
-          ref={audioRef}
-          controls
-          onPlay={handleAudioPlay}
-          onPause={handleAudioPause}
-        >
-          <source src="your-audio-file.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
+      <div className={`media-player`}>
+        <PodcastPlayer
+          audioUrl="your-audio-file.mp3" // Provide the audio URL
+          episodeTitle="Sample Episode" // Provide the episode title
+          showName="Sample Podcast" // Provide the show name
+          episodeImage="/api/placeholder/60/60" // Provide the image URL
+        />
       </div>
 
       {/* Navigation Section */}
