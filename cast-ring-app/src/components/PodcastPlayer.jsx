@@ -163,7 +163,17 @@ export default function PodcastPlayer({
                                 <play size={24} />
                             )}
                         </button>
+                        <button
+                            onClick={() => handleSkip(30)}
+                            className="skip-button"
+                            title="Skip forward 30 seconds"
+                        >
+                            <FastForward size={20}/>
+                            <span className="skip-text">30</span>
+                        </button>
                     </div>
+
+                    
                 </div>
                 
 
