@@ -1,242 +1,134 @@
-import { useState, useRef, useEffect} from "react";
-import {
-    Play,
-    Pause,
-    Volume2,
-    VolumeX,
-    Settings,
-    Rewind,
-    FastForward
-} from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Play, Pause, VolumeX, Volume2, Rewind, FastForward } from "lucide-react";
 import PropTypes from "prop-types";
-import './podcastPlayer.css';
+import "./podcastPlayer.css";
 
-export default function PodcastPlayer({ 
-  audioUrl, 
-  episodeTitle = "Unknown Episode", 
+export default function CompactPodcastPlayer({
+  audioUrl,
+  episodeTitle = "Unknown Episode",
   showName = "Unknown Show",
-  episodeImage = "/api/placeholder/60/60"
 }) {
-    const[isPlaying, setIsPlaying] = useState(false);
-    const[duration, setDuration] = useState(0);
-    const[currentTime, setCurrentTime] = useState(0);
-    const[volume, setVolume] = useState(1);
-    const[isMute, setIsMute] = useState(false);
-    const[playbackRate, setPlayBackRate] = useState(1);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(1);
+  const [isMute, setIsMute] = useState(false);
 
-    const audioRef = useRef(null);
-    const progressBarRef = useRef(null);
+  const audioRef = useRef(null);
+  const progressBarRef = useRef(null);
 
-    useEffect(() => {
-        const audio = audioRef.current;
+  useEffect(() => {
+    const audio = audioRef.current;
+    const handleLoadedMetadata = () => setDuration(audio.duration);
+    const handleTimeUpdate = () => setCurrentTime(audio.currentTime);
 
-        const handleLoadedMetaData = () => {
-            setDuration(audio.duration);
-        };
+    audio.addEventListener("loadedmetadata", handleLoadedMetadata);
+    audio.addEventListener("timeupdate", handleTimeUpdate);
 
-        const handleTimeUpdate = () => {
-            setCurrentTime(audio.currentTime);
-        };
-
-        audio.addEventListener('loadedmetadata', handleLoadedMetaData);
-        audio.addEventListener('timeupdate', handleTimeUpdate);
-
-        return () => {
-            audio.removeEventListner('loadedmetadata', handleLoadedMetaData);
-            audio.removeEventListner('timeupdate', handleTimeUpdate);
-        };
-    }, []);
-
-
-//To handle functionality of the buttons on the player 
-
-
-    //How the time should be formatted
-    const formatTime = (time) => {
-        const hours = Math.floor(time/3600);
-        const minutes = Math.floor((time % 3600) * 60);
-        const seconds = Math.floor(time % 60);
-
-        if (hours > 0){
-            return `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-        }
-        return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return () => {
+      audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
     };
+  }, []);
 
-    //to handle pause
-
-    const handlePause = () => {
-        if (isPlaying) {
-            audioRef.current.pause();
-        } else {
-            audioRef.current.play()
-        }
-        setIsPlaying(!isPlaying);
+  const togglePlayPause = () => {
+    const audio = audioRef.current;
+    if (audio) {
+      isPlaying ? audio.pause() : audio.play();
+      setIsPlaying(!isPlaying);
     }
+  };
 
+  //handle volume
 
-    //handle seeking by clicking progress bar
-    
-    const handleTimeUpdate = (e) => {
-        const clickPosition = (e.nativeEvent.offsetX) / progressBarRef.current.offsetWidth;
-        const newTime = clickPosition * duration;
-        audioRef.current.currentTime = newTime;
-        setCurrentTime(newTime);
-    };
+  const newVolumeChange = (e) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    audioRef.current.volume = newVolume;
+    setIsMute(newVolume === 0);
+  };
 
-    //handle volume 
-    
-    const newVolumeChange = (e) => {
-        const newVolume = parseFloat(e.target.value);
-        setVolume(newVolume);
-        audioRef.current.volume = newVolume;
-        setIsMute(newVolume === 0);
-    };
+  //toggle for mute
 
-    //toggle for mute
+  const toggleMute = () => {
+    if (isMute) {
+      audioRef.current.volume = volume;
+      setIsMute(false);
+    } else {
+      audioRef.current.volume = 0;
+      setIsMute(true);
+    }
+  };
 
-    const toggleMute = () => {
-        if(isMute) {
-            audioRef.current.volume = volume;
-            setIsMute(false);
-        } else {
-            audioRef.current.volume = 0;
-            setIsMute(true)
-        }
-    };
+  const handleSkip = (seconds) => {
+    const audio = audioRef.current;
+    const newTime = audio.currentTime + seconds;
+    audio.currentTime = Math.max(0, Math.min(newTime, duration));
+  };
 
-    //handle skip in seconds
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
+  };
 
-    const handleSkip = (seconds) => {
-        const newTime = audioRef.current.currentTime + seconds;
-        audioRef.current.currentTime = Math.max(0, Math.min(newTime, duration));
-    };
-
-
-    //play back rate 
-
-    const handlePlaybackRateChange = (rate) => {
-        audioRef.current.playbackRate = rate;
-        setPlayBackRate(rate);
-    };
-
-    const playbackRates = [0.5, 0.8, 1, 1.2, 1.5, 2];
-
-
-    return (
-      <div className="podcast-player">
-        <audio ref={audioRef} src={audioUrl} className="hidden" />
-        <div className="player-container">
-          {/*Episode information*/}
-          <div className="episode-info">
-            <img
-              src={episodeImage}
-              alt={episodeTitle}
-              className="episode-image"
-            />
-            <div className="episode-details">
-              <div className="episode-title">{episodeTitle}</div>
-              <div className="show-name">{showName}</div>
-            </div>
-          </div>
-
-          {/* Player Controls */}
-          <div className="player-controls">
-            <div className="main-controls">
-              <button
-                onClick={() => handleSkip(-30)}
-                className="skip-button"
-                title="Skip back 30 seconds"
-              >
-                <Rewind size={20} />
-                <span className="skip-text">30</span>
-              </button>
-              <button onClick={handlePause} className="play-button">
-                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-              </button>
-              <button
-                onClick={() => handleSkip(30)}
-                className="skip-button"
-                title="Skip forward 30 seconds"
-              >
-                <FastForward size={20} />
-                <span className="skip-text">30</span>
-              </button>
-            </div>
-            {/* Progress bar */}
-            <div className="progress-container">
-              <span className="time-display">{formatTime(currentTime)}</span>
-              <div
-                ref={progressBarRef}
-                onClick={handleTimeUpdate}
-                className="progress-bar"
-              >
-                <div
-                  className="progress-fill"
-                  style={{ width: `${(currentTime / duration) * 100}%` }}
-                >
-                  <div className="progress-handle"></div>
-                </div>
-              </div>
-              <span className="time-display">{formatTime(duration)}</span>
-            </div>
-          </div>
-
-          {/* Volume and Speed controls */}
-
-          <div className="additional-controls">
-            {/* Playback speed */}
-            <div className="speed-control">
-              <button className="speed-button">
-                <Settings size={18} />
-                <span>{playbackRate}x</span>
-              </button>
-              <div className="speed-options">
-                {playbackRates.map((rate) => (
-                  <button
-                    key={rate}
-                    onClick={() => handlePlaybackRateChange(rate)}
-                    className={`speed-option ${playbackRate === rate ? "active" : ""}`}
-                  >
-                    {rate}x
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Volume Control */}
-
-            <div className="volume-control">
-              <button onClick={toggleMute} className="volume-button">
-                {isMute ? <VolumeX sixe={20} /> : <Volume2 size={20} />}
-              </button>
-              <input
-                type="range"
-                min="0"
-                max="1"
-                step="0.1"
-                value={isMute ? 0 : volume}
-                onChange={newVolumeChange}
-                className="volume-slider"
-              />
-            </div>
+  return (
+    <div className="compact-podcast-player">
+      <audio ref={audioRef} src={audioUrl} />
+      <div className="player-controls">
+        <div className="episode-info">
+          <div className="episode-details">
+            <div className="episode-title">{episodeTitle}</div>
+            <div className="show-name">{showName}</div>
           </div>
         </div>
+
+        <div className="playback-controls">
+          <button onClick={() => handleSkip(-30)} className="skip-back">
+            <Rewind size={16} />
+          </button>
+          <button onClick={togglePlayPause} className="play-pause">
+            {isPlaying ? <Pause size={20} /> : <Play size={20} />}
+          </button>
+          <button onClick={() => handleSkip(30)} className="skip-forward">
+            <FastForward size={16} />
+          </button>
+        </div>
+
+        <div ref={progressBarRef} className="progress-bar">
+          <div
+            className="progress-fill"
+            style={{ width: `${(currentTime / duration) * 100}%` }}
+          />
+        </div>
+
+        <div className="time-display">
+          {formatTime(currentTime)} / {formatTime(duration)}
+        </div>
+
+        {/* Volume Control */}
+
+        <div className="volume-control">
+          <button onClick={toggleMute} className="volume-button">
+            {isMute ? <VolumeX sixe={20} /> : <Volume2 size={20} />}
+          </button>
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.1"
+            value={isMute ? 0 : volume}
+            onChange={newVolumeChange}
+            className="volume-slider"
+          />
+        </div>
       </div>
-    );
-};
+    </div>
+  );
+}
 
-// Prop validation using PropTypes
-PodcastPlayer.propTypes = {
-  audioUrl: PropTypes.string.isRequired, // audio URL is required
-  episodeTitle: PropTypes.string, // episode title is optional
-  showName: PropTypes.string, // show name is optional
-  episodeImage: PropTypes.string, // episode image URL is optional
-};
-
-// Set default props
-PodcastPlayer.defaultProps = {
-  episodeTitle: "Unknown Episode", // Default title if not passed
-  showName: "Unknown Show", // Default show name if not passed
-  episodeImage: "/api/placeholder/60/60", // Default image if not passed
+CompactPodcastPlayer.propTypes = {
+  audioUrl: PropTypes.string.isRequired,
+  episodeTitle: PropTypes.string,
+  showName: PropTypes.string,
 };

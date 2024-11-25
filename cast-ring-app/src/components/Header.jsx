@@ -1,21 +1,19 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import logoImg from "../assets/cast-ring-logo2.png";
-import PodcastPlayer from "./PodcastPlayer";
+import PodcastPlayer from "./PodcastPlayer"; // Import the PodcastPlayer component
 
 export default function Header() {
-
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle the menu
- 
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen); // Toggle the menu state
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
-
 
   return (
     <header>
@@ -24,12 +22,14 @@ export default function Header() {
       </div>
 
       {/* Media Player Section */}
-      <div className={`media-player`}>
+      <div className={`media-player ${isAudioPlaying ? "active" : ""}`}>
         <PodcastPlayer
-          audioUrl="your-audio-file.mp3" // Provide the audio URL
-          episodeTitle="Sample Episode" // Provide the episode title
-          showName="Sample Podcast" // Provide the show name
-          episodeImage="/api/placeholder/60/60" // Provide the image URL
+          audioUrl="your-audio-file.mp3"
+          episodeTitle="Your Episode Title"
+          showName="Your Show Name"
+          episodeImage="/path/to/episode-image.jpg"
+          onPlay={() => setIsAudioPlaying(true)}
+          onPause={() => setIsAudioPlaying(false)}
         />
       </div>
 
