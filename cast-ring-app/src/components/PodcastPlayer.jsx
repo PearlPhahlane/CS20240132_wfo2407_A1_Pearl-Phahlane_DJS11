@@ -141,6 +141,20 @@ export default function PodcastPlayer({
                         <div className="show-name">{showName}</div>
                     </div>
                 </div>
+
+                {/* Player Controls */}
+                <div className="player-controls">
+                    <div className="main-controls">
+                        <button
+                        onClick={() => handleSkip(-30)}
+                        className="skip-button"
+                        title="Skip back 30 seconds"
+                        >
+                            <Rewind size={20} />
+                            <span className="skip-text">30</span>
+                        </button>
+                    </div>
+                </div>
                 
 
             </div>
