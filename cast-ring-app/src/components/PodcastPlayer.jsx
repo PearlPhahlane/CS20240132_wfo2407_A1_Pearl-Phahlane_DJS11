@@ -19,7 +19,7 @@ export default function PodcastPlayer({
     const[duration, setDuration] = useState(0);
     const[currentTime, setCurrentTime] = useState(0);
     const[volume, setVolume] = useState(1);
-    const[isMute, setMute] = useState(false);
+    const[isMute, setIsMute] = useState(false);
     const[playbackRate, setPlayBackRate] = useState(1);
 
     const audioRef = useRef(null);
@@ -82,4 +82,18 @@ export default function PodcastPlayer({
         setCurrentTime(newTime);
     };
 
+    //handle volume 
     
+    const newVolumeChange = (e) => {
+        const newVolume = parseFloat(e.target.value);
+        setVolume(newVolume);
+        audioRef.current.volume = newVolume;
+        setIsMute(newVolume === 0);
+    };
+
+    
+
+
+
+
+}
