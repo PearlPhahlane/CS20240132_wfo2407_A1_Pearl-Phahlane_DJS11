@@ -72,5 +72,14 @@ export default function PodcastPlayer({
         setIsPlaying(!isPlaying);
     }
 
+
+    //handle seeking by clicking progress bar
     
-}
+    const handleTimeUpdate = (e) => {
+        const clickPosition = (e.nativeEvent.offsetX) / progressBarRef.current.offsetWidth;
+        const newTime = clickPosition * duration;
+        audioRef.current.currentTime = newTime;
+        setCurrentTime(newTime);
+    };
+
+    
