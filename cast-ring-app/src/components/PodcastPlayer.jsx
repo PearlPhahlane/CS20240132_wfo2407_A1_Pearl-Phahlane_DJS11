@@ -121,6 +121,33 @@ export default function PodcastPlayer({
     const playbackRates = [0.5, 0.8, 1, 1.2, 1.5, 2];
 
 
+    return (
+        <div className="podcast-player">
+            <audio 
+                ref={audioRef}
+                src={audioUrl}
+                className="hidden"
+            />
+            <div className="player-container">
+                {/*Episode information*/}
+                <div className="episode-info">
+                    <img
+                        src={episodeImage}
+                        alt={episodeTitle}
+                        className="episode-image"
+                    />
+                    <div className="episode-details">
+                        <div className="episode-title">{episodeTitle}</div>
+                        <div className="show-name">{showName}</div>
+                    </div>
+                </div>
+                
+
+            </div>
+
+
+        </div>
+    )
 
 
 }
