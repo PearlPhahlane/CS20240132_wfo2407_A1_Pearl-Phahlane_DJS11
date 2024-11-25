@@ -105,7 +105,7 @@ export default function PodcastPlayer({
 
     //handle skip in seconds
 
-    const handleSkip = (second) => {
+    const handleSkip = (seconds) => {
         const newTime = audioRef.current.currentTime + seconds;
         audioRef.current.currentTime = Math.max(0, Math.min(newTime, duration));
     };
@@ -150,7 +150,7 @@ export default function PodcastPlayer({
                 <span className="skip-text">30</span>
               </button>
               <button onClick={handlePause} className="play-button">
-                {isPlaying ? <pause size={24} /> : <play size={24} />}
+                {isPlaying ? <Pause size={24} /> : <Play size={24} />}
               </button>
               <button
                 onClick={() => handleSkip(30)}
@@ -190,7 +190,7 @@ export default function PodcastPlayer({
                 <span>{playbackRate}x</span>
               </button>
               <div className="speed-options">
-                {[0.5, 0.8, 1, 1.2, 1.5, 2].map((rate) => (
+                {playbackRates.map((rate) => (
                   <button
                     key={rate}
                     onClick={() => handlePlaybackRateChange(rate)}
