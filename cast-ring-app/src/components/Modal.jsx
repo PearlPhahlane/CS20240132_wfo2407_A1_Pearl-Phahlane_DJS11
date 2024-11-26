@@ -14,7 +14,7 @@ export default function Modal({ podcast, isOpen, onClose }) {
           <strong>Title:</strong> {podcast.title}
         </p>
         <p>
-          <strong>Genre:</strong> {podcast.genre}
+          <strong>Genre:</strong>  
         </p>
         <p>
           <strong>Seasons:</strong> {podcast.seasons}
@@ -32,7 +32,6 @@ Modal.propTypes = {
   podcast: PropTypes.shape({
     title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    genre: PropTypes.string.isRequired,
     seasons: PropTypes.number.isRequired,
   }).isRequired,
   isOpen: PropTypes.bool.isRequired,

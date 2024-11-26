@@ -6,13 +6,21 @@ export default function Home() {
   const [podcasts, setPodcasts] = useState([]);
   const [selectedPodcast, setSelectedPodcast] = useState(null); // Store selected podcast for the modal
   const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
+  const [isLoading, setIsLoading] = useState(true);
 
- useEffect(() => {
-   fetch("https://podcast-api.netlify.app")
-     .then((response) => response.json())
-     .then((data) => setPodcasts(data))
-     .catch((error) => console.error("Error fetching podcasts:", error));
- }, []);
+useEffect(() => {
+  fetch("https://podcast-api.netlify.app")
+    .then((response) => response.json())
+    .then((data) => {
+      setPodcasts(data);
+      setIsLoading(false);
+    })
+    .catch((error) => {
+      console.error("Error fetching podcasts:", error);
+      setIsLoading(false);
+    });
+}, []);
+
 
  const openModal = (podcast) => {
    setSelectedPodcast(podcast);
@@ -47,18 +55,25 @@ export default function Home() {
  return (
    <div className="carousel-container">
      <h1>New Shows</h1>
-     <Slider {...settings}>
-       {podcasts.slice(0, 6).map((podcast) => (
-         <div key={podcast.id} className="podcast-item">
-           <button onClick={() => openModal(podcast)}>
-             <img src={podcast.image} alt={podcast.title} />
-           </button>
-           <h4>{podcast.title}</h4>
-         </div>
-       ))}
-     </Slider>
-
-    <Modal podcast={selectedPodcast} isOpen={isModalOpen} onClose={closeModal} />
+     {isLoading ? (
+       <p>Loading...</p>
+     ) : (
+       <Slider {...settings}>
+         {podcasts.map((podcast) => (
+           <div key={podcast.id} className="podcast-item">
+             <button onClick={() => openModal(podcast)}>
+               <img src={podcast.image} alt={podcast.title} />
+             </button>
+             <h4>{podcast.title}</h4>
+           </div>
+         ))}
+       </Slider>
+     )}
+     <Modal
+       podcast={selectedPodcast}
+       isOpen={isModalOpen}
+       onClose={closeModal}
+     />
    </div>
  );
 }
