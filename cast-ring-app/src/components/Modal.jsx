@@ -9,10 +9,9 @@ export default function Modal({ podcast, isOpen, onClose }) {
         <button onClick={onClose} className="modal-close-btn">
           X
         </button>
-        <h2>{podcast.name}</h2>
-        <img src={podcast.image} alt={podcast.name} />
+        <img src={podcast.image} alt={podcast.title} />
         <p>
-          <strong>Title:</strong> {podcast.name}
+          <strong>Title:</strong> {podcast.title}
         </p>
         <p>
           <strong>Genre:</strong> {podcast.genre}
@@ -31,7 +30,7 @@ export default function Modal({ podcast, isOpen, onClose }) {
 // Prop validation
 Modal.propTypes = {
   podcast: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
     genre: PropTypes.string.isRequired,
     seasons: PropTypes.number.isRequired,

@@ -51,9 +51,9 @@ export default function Home() {
        {podcasts.slice(0, 6).map((podcast) => (
          <div key={podcast.id} className="podcast-item">
            <button onClick={() => openModal(podcast)}>
-             <img src={podcast.image} alt={podcast.name} />
+             <img src={podcast.image} alt={podcast.title} />
            </button>
-           <h3>{podcast.name}</h3>
+           <h4>{podcast.title}</h4>
          </div>
        ))}
      </Slider>
