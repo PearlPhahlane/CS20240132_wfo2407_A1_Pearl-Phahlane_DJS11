@@ -1,0 +1,27 @@
+
+.landing-container {
+    background-image: url(cast-ring-app/src/assets/cast-ring-logo2.png);
+    background-size: cover;
+}
+
+.landing-container h1 {
+    color: #fffceb;
+    font-weight: 600;
+    line-height: 42px;
+}
+
+.landing-container p {
+    line-height: 24px;
+}
+
+.landing-container a {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    background-color: #e09f3e;
+    color: #fffceb;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
