@@ -1,7 +1,38 @@
+* {
+    box-sizing: border-box;
+}
 
 .landing-container {
-    background-image: url(cast-ring-app/src/assets/cast-ring-logo2.png);
-    background-size: cover;
+  position: relative; /* Make sure the container is positioned */
+  min-height: 100vh;
+  width: 100%; 
+  padding: 45px 23px;
+  color: white; /* Set text color to white for visibility */
+  background-image: url('/src/assets/landing-hero.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.landing-container::after {
+  content: ''; /* Create an empty element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent black overlay */
+  z-index: 1; /* Place the overlay above the image */
+}
+
+
+.landing-container h1,
+.landing-container p, 
+.landing-container a {
+  position: relative;
+  z-index: 2; /* Ensure text is on top of the overlay */
+  margin: 0;
+  padding: 20px;
 }
 
 .landing-container h1 {
@@ -12,6 +43,7 @@
 
 .landing-container p {
     line-height: 24px;
+    color: #fffceb;
 }
 
 .landing-container a {
@@ -24,4 +56,20 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    padding: 20px;
+}
+
+
+/* Responsiveness*/
+
+@media (max-width: 768px) {
+  .landing-container {
+    min-height: 100vh; /* Keep the full viewport height */
+  }
+}
+
+@media (max-width: 480px) {
+  .landing-container {
+    padding: 20px; /* More padding for small screens */
+  }
 }

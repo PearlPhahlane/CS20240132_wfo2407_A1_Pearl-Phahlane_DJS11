@@ -10,7 +10,7 @@ export default function LandingPage() {
           wellness—your next favorite show is just a click away. Start listening
           now and let the stories unfold!
         </p>
-        <Link>Start Listening Now</Link>
+        <Link to="home">Start Listening Now</Link>
       </div>
     );
 }
