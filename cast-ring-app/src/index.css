@@ -11,7 +11,7 @@ body, html {
 }
 
 h1 {
-  color: #fff3b0;
+  color: #fffceb;
 }
 
 .layout {
@@ -73,11 +73,12 @@ header {
 nav {
   display: flex;
   gap: 15px;
+  font-size: large;
 }
 
 nav a {
   text-decoration: none;
-  color: #fff3b0;
+  color: #fffceb;
   font-weight: bold;
   transition: all 0.3s ease;
   position: relative;
