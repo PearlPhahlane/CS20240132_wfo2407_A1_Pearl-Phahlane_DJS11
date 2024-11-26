@@ -12,13 +12,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Route for landingpage at '/' */}
         <Route path="/" element={<LandingPage />}/>
-        <Route path="/" element={<Layout />}>
-         <Route path="home" element={<Home />} />
-         <Route path="browse" element={<Browse />} />
-         <Route path="favorites" element={<Favorites />} />
-         
 
+        {/* Wrapped Layout Route for other pages*/}
+        <Route path="/" element={<Layout />}>
+          <Route path="home" element={<Home />} />
+          <Route path="browse" element={<Browse />} />
+          <Route path="favorites" element={<Favorites />} />
         </Route>
       </Routes>
     </BrowserRouter>
