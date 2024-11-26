@@ -1,13 +1,16 @@
-* {
-  box-sizing: border-box;
-}
-
 body, html {
   margin: 0;
   padding: 0;
   height: 100%;
   background-image: linear-gradient(to right,#0F2027 , #203A43, #2C5364);
   font-family: "Quicksand", sans-serif;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 h1 {
@@ -17,7 +20,8 @@ h1 {
 .layout {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; 
+  margin-top: auto;
+  flex: 1;
 }
 
 header {
@@ -118,7 +122,6 @@ footer {
   text-align: center;
   padding: 10px 20px;
   background-color: #f4f4f4;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
 nav .hamburger {
@@ -358,6 +361,4 @@ button:hover {
   color:#ffd369;
 }
 
-  footer {
-    margin-top: 20px;
-  }
+  
