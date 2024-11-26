@@ -3,7 +3,7 @@ import { Play, Pause, VolumeX, Volume2, Rewind, FastForward } from "lucide-react
 import PropTypes from "prop-types";
 import "./podcastPlayer.css";
 
-export default function CompactPodcastPlayer({
+export default function PodcastPlayer({
   audioUrl,
   episodeTitle = "Unknown Episode",
   showName = "Unknown Show",
@@ -73,7 +73,7 @@ export default function CompactPodcastPlayer({
   };
 
   return (
-    <div className="compact-podcast-player">
+    <div className="podcast-player">
       <audio ref={audioRef} src={audioUrl} />
       <div className="player-controls">
         <div className="episode-info">
@@ -127,7 +127,7 @@ export default function CompactPodcastPlayer({
   );
 }
 
-CompactPodcastPlayer.propTypes = {
+PodcastPlayer.propTypes = {
   audioUrl: PropTypes.string.isRequired,
   episodeTitle: PropTypes.string,
   showName: PropTypes.string,

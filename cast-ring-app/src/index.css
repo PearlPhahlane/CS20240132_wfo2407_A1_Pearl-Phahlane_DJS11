@@ -36,7 +36,6 @@ header {
 .media-player {
   flex: 1; 
   text-align: center;
-  background: linear-gradient(to right, #0F2027, #203A43, #2C5364);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
   border-radius: 8px;
 }

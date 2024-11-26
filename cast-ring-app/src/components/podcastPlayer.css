@@ -1,11 +1,11 @@
-.compact-podcast-player {
+.podcast-player {
   background-color: #181818;
   color: white;
   padding: 0.5rem;
   border-top: 1px solid #282828;
 }
 
-.compact-podcast-player .player-controls {
+.podcast-player .player-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -13,42 +13,42 @@
   margin: 0 auto;
 }
 
-.compact-podcast-player .episode-info {
+.podcast-player .episode-info {
   display: flex;
   align-items: center;
   flex-grow: 1;
   min-width: 0;
 }
 
-.compact-podcast-player .episode-details {
+.podcast-player .episode-details {
   margin-left: 0.5rem;
   overflow: hidden;
 }
 
-.compact-podcast-player .episode-title,
-.compact-podcast-player .show-name {
+.podcast-player .episode-title,
+.podcast-player .show-name {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.compact-podcast-player .episode-title {
+.podcast-player .episode-title {
   font-size: 0.75rem;
   font-weight: 500;
 }
 
-.compact-podcast-player .show-name {
+.podcast-player .show-name {
   font-size: 0.625rem;
   color: #9ca3af;
 }
 
-.compact-podcast-player .playback-controls {
+.podcast-player .playback-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
-.compact-podcast-player .play-pause {
+.podcast-player .play-pause {
   background-color: white;
   color: black;
   border: none;
@@ -57,7 +57,7 @@
   cursor: pointer;
 }
 
-.compact-podcast-player .progress-bar {
+.podcast-player .progress-bar {
   flex-grow: 1;
   height: 2px;
   background-color: #4b5563;
@@ -65,13 +65,13 @@
   margin: 0 0.5rem;
 }
 
-.compact-podcast-player .progress-fill {
+.podcast-player .progress-fill {
   height: 100%;
   background-color: white;
   border-radius: 9999px;
 }
 
-.compact-podcast-player .time-display {
+.podcast-player .time-display {
   font-size: 0.625rem;
   color: #9ca3af;
 }
