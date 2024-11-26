@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import Slider from "react-slick";
+import Modal from "../components/Modal";
 
 export default function Home() {
   const [podcasts, setPodcasts] = useState([]);
@@ -57,29 +58,7 @@ export default function Home() {
        ))}
      </Slider>
 
-     {isModalOpen && selectedPodcast && (
-       <div className="modal">
-         <div className="modal-content">
-           <button onClick={closeModal} className="modal-close-btn">
-             X
-           </button>
-           <h2>{selectedPodcast.name}</h2>
-           <img src={selectedPodcast.image} alt={selectedPodcast.name} />
-           <p>
-             <strong>Genre:</strong> {selectedPodcast.genre}
-           </p>
-           <p>
-             <strong>Release Date:</strong> {selectedPodcast.date}
-           </p>
-           <p>
-             <strong>Seasons:</strong> {selectedPodcast.seasons}
-           </p>
-           <button onClick={() => console.log("Show all episodes")}>
-             See All Episodes
-           </button>
-         </div>
-       </div>
-     )}
+    <Modal podcast={selectedPodcast} isOpen={isModalOpen} onClose={closeModal} />
    </div>
  );
 }
