@@ -126,7 +126,7 @@ export default function Browse() {
         {/* Sort Filter */}
         <select name="sort" value={filters.sort} onChange={handleFilterChange}>
           <option value="alphabetical">Alphabetical</option>
-          <option value="releaseDate">Release Date</option>
+          <option value="releaseDate">Release Date (Oldest)</option>
         </select>
 
         {/* Genre Filter */}
@@ -137,10 +137,7 @@ export default function Browse() {
         >
           <option value="">All Genres</option>
           {Object.keys(genreMapping).map((genreId) => (
-            <option
-              key={genreId}
-              value={genreId}
-            >
+            <option key={genreId} value={genreId}>
               {genreMapping[genreId]}
             </option>
           ))}
