@@ -436,6 +436,16 @@ button:hover {
 
 /*Browser*/
 
+.podcast-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+
+}
+
 .podcast-grid-container {
   padding: 20px;
   display: flex;
