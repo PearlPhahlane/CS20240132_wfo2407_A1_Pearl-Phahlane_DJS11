@@ -81,7 +81,7 @@ header {
 nav {
   display: flex;
   gap: 15px;
-  font-size: large;
+  font-size: x-large;
 }
 
 nav a {
@@ -139,7 +139,14 @@ nav .hamburger div {
 nav ul {
   list-style: none;
   display: flex;
+  flex-direction: row;
   gap: 15px;
+  margin: 0;
+  padding-top: 20px;
+}
+
+.search-btn {
+  color: red;
 }
 
 nav ul.active {

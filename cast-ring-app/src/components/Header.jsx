@@ -125,7 +125,12 @@ export default function Header() {
             <button
               className="search-btn"
               onClick={openModal}
-              style={{ fontSize: "24px", color: "#ffffff" }}
+              style={{
+                fontSize: "20px",
+                marginTop: "-10px",
+                padding: "15px",
+                color: "#ffffff",
+              }}
             >
               <FaSearch />
             </button>
