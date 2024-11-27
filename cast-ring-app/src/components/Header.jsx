@@ -56,24 +56,7 @@ export default function Header() {
         <img src={logoImg} alt="Logo" />
       </div>
 
-      {/* Display current search criteria */}
-      {searchCriteria.podcastName ||
-      searchCriteria.genre ||
-      searchCriteria.releaseYear ? (
-        <div className="search-summary">
-          <p>Searching for:</p>
-          <ul>
-            {searchCriteria.podcastName && (
-              <li>Podcast Name: {searchCriteria.podcastName}</li>
-            )}
-            {searchCriteria.genre && <li>Genre: {searchCriteria.genre}</li>}
-            {searchCriteria.releaseYear && (
-              <li>Release Year: {searchCriteria.releaseYear}</li>
-            )}
-          </ul>
-        </div>
-      ) : null}
-
+      
       {/* Media Player Section */}
       <div className={`media-player ${isAudioPlaying ? "active" : ""}`}>
         <PodcastPlayer
