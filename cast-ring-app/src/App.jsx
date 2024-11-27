@@ -5,7 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Favorites from "./pages/Favorites";
-import SearchResultsPage from "./SearchResultsPage";
+import SearchResults from "./SearchResults";
 import Layout from './components/Layout';
 
 
@@ -21,7 +21,7 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="browse" element={<Browse />} />
           <Route path="favorites" element={<Favorites />} />
-          <Route path="/search-results" element={<SearchResultsPage />} />
+          <Route path="search-results" element={<SearchResults />} />
         </Route>
       </Routes>
     </BrowserRouter>
