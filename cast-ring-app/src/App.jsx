@@ -5,7 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Favorites from "./pages/Favorites";
-import SearchResults from "./SearchResults";
+import SearchResults from "./pages/SearchResults";
 import Layout from './components/Layout';
 
 

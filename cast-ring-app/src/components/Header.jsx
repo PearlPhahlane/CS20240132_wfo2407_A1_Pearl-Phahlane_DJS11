@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import logoImg from "../assets/cast-ring-logo2.png";
 import PodcastPlayer from "./PodcastPlayer"; // Import the PodcastPlayer component
 import { FaSearch } from "react-icons/fa"; //import search icon
@@ -19,6 +19,8 @@ export default function Header() {
     genre: "",
     releaseYear: "",
   });
+
+  const navigate = useNavigate(); // Use useNavigate hook
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -40,9 +42,14 @@ export default function Header() {
   const handleSearch = (criteria) => {
     setSearchCriteria(criteria); // Update the search criteria state
     console.log("Searching for:", criteria); // You can add your search logic here, like filtering podcasts
+
+    // Navigate to SearchResults page and pass search criteria via state
+    navigate("/search-results", {
+      state: { searchCriteria: criteria },
+    });
+
     closeModal(); // Close the modal after performing the search
   };
-
   return (
     <header>
       <div className="logo">
