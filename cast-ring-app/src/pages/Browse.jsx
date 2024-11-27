@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import Modal from "../components/Modal";
 
 
 export default function Browse() {
   const [podcasts, setPodcasts] = useState([]); // To store the podcasts
+  const [selectedPodcast, setSelectedPodcast] = useState(null); // Store selected podcast for the modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
   const [isLoading, setIsLoading] = useState(true); // To manage the loading state
 
   useEffect(() => {
@@ -32,7 +35,14 @@ export default function Browse() {
         setIsLoading(false); // Handle error and stop loading
       });
   }, []); // Empty array ensures this runs only once on mount
-  
+
+  const openModal = (podcast) => {
+    setSelectedPodcast(podcast);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => setIsModalOpen(false);
+
 
   return (
     <div className="podcast-container">
@@ -43,16 +53,19 @@ export default function Browse() {
         <div className="podcast-grid">
           {podcasts.map((podcast) => (
             <div key={podcast.id} className="podcast-item">
-              <img
-                src={podcast.image}
-                alt={podcast.title}
-                className="podcast-image"
-              />
-              <h3 className="podcast-title">{podcast.title}</h3>
+              <button onClick={() => openModal(podcast)}>
+                <img src={podcast.image} alt={podcast.title} />
+              </button>
+              <h4>{podcast.title}</h4>
             </div>
           ))}
         </div>
       )}
+      <Modal
+        podcast={selectedPodcast}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   );
 }
