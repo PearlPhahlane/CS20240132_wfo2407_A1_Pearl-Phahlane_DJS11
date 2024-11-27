@@ -5,6 +5,7 @@ import LandingPage from "./pages/LandingPage";
 import Home from "./pages/Home";
 import Browse from "./pages/Browse";
 import Favorites from "./pages/Favorites";
+import SearchResultsPage from "./SearchResultsPage";
 import Layout from './components/Layout';
 
 
@@ -13,17 +14,18 @@ function App() {
     <BrowserRouter>
       <Routes>
         {/* Route for landingpage at '/' */}
-        <Route path="/" element={<LandingPage />}/>
+        <Route path="/" element={<LandingPage />} />
 
         {/* Wrapped Layout Route for other pages*/}
         <Route path="/" element={<Layout />}>
           <Route path="home" element={<Home />} />
           <Route path="browse" element={<Browse />} />
           <Route path="favorites" element={<Favorites />} />
+          <Route path="/search-results" element={<SearchResultsPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App
