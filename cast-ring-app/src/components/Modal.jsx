@@ -47,12 +47,7 @@ export default function Modal({ podcast, isOpen, onClose }) {
 
 // Prop validation
 Modal.propTypes = {
-  podcast: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    image: PropTypes.string.isRequired,
-    seasons: PropTypes.number.isRequired,
-    genres: PropTypes.arrayOf(PropTypes.number).isRequired, // Expect an array of genre IDs
-  }).isRequired,
+  podcast: PropTypes.object, // No need for .isRequired anymore
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
