@@ -243,8 +243,7 @@ label {
 }
 
 
-input,
-select {
+input {
   padding: 10px;
   font-size: 14px;
   width: 100%; /* Make inputs and selects take up full width of the form */
@@ -253,8 +252,14 @@ select {
   
 }
 
-select {
-  height: 40px; /* Set the same height for select */
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer; /* Change cursor to pointer when hovering */
+  transition: background-color 0.2s ease; /* Smooth transition for hover effect */
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Highlight the item on hover */
 }
 
 .form-actions {
@@ -266,8 +271,6 @@ select {
 select {
   height: 40px; /* Set the same height for select */
 }
-
-
 
 
 footer {
