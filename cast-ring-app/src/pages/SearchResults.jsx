@@ -6,7 +6,7 @@ export default function SearchResults() {
   const location = useLocation();
   const searchCriteria = location.state?.searchCriteria || {};
 
-  const [isModalOpen, setIsModalOpen] = useState(true); // Open the modal by default
+  const [isModalOpen, setIsModalOpen] = useState(false) //start with modal closed
 
   const closeModal = () => {
     setIsModalOpen(false);
