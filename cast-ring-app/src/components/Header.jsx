@@ -14,11 +14,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for the modal
-  const [searchCriteria, setSearchCriteria] = useState({
-    podcastName: "",
-    genre: "",
-    releaseYear: "",
-  });
+  
 
   const navigate = useNavigate(); // Use useNavigate hook
 
@@ -40,7 +36,6 @@ export default function Header() {
 
   // Handle the search from the modal
   const handleSearch = (criteria) => {
-    setSearchCriteria(criteria); // Update the search criteria state
     console.log("Searching for:", criteria); // You can add your search logic here, like filtering podcasts
 
     // Navigate to SearchResults page and pass search criteria via state
