@@ -1,10 +1,9 @@
-// src/components/SearchModal.jsx
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom"; // Use `useNavigate` from react-router-dom
+import { useNavigate } from "react-router-dom"; // Import useNavigate hook
 
 // Search Modal Component
-export default function SearchModal({ isOpen, onClose, onSearch }) {
+export default function SearchModal({ isOpen, onClose }) {
   const [searchCriteria, setSearchCriteria] = useState({
     podcastName: "", // Only search by title
   });
@@ -71,9 +70,19 @@ export default function SearchModal({ isOpen, onClose, onSearch }) {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchCriteria.podcastName) {
-      // Pass the filtered search result or query to the parent
-      onSearch(searchCriteria.podcastName);
-      onClose(); // Close the modal after search
+      // Find the selected podcast
+      const selectedPodcast = allPodcasts.find(
+        (podcast) =>
+          podcast.title.toLowerCase() ===
+          searchCriteria.podcastName.toLowerCase()
+      );
+      if (selectedPodcast) {
+        // Navigate to the podcast detail page
+        navigate(`/podcast/${selectedPodcast.id}`);
+        onClose(); // Close the modal after search
+      } else {
+        alert("Podcast not found");
+      }
     } else {
       alert("Please enter a podcast name to search.");
     }
