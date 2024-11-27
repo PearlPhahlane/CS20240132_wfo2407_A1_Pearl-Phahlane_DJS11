@@ -145,10 +145,6 @@ nav ul {
   padding-top: 20px;
 }
 
-.search-btn {
-  color: red;
-}
-
 nav ul.active {
   display: block;
 }
@@ -160,6 +156,118 @@ nav ul li {
 .close-btn {
   display: none;
 }
+
+/* search modal*/
+
+.search-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+ .search-modal-content  {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  position: relative;
+
+ }
+
+.search-submit-btn {
+  background-color: #0056b3; 
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px; /* Add space between buttons */
+  width: 100%;
+  height: 100%;
+}
+.search-close-btn {
+  background-color: #ccc;
+  color: black;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e09f3e;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for zoom effect */
+}
+
+button:hover {
+  transform: scale(1.1); /* Scale the button by 10% when hovered */
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow to emphasize the zoom */
+}
+
+/*Search form*/
+
+.search-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between form groups */
+  margin: 0 auto; /* Center the form */
+}
+
+.form-group {
+  display: flex;
+  align-items: center; /* Align the label and input vertically */
+  gap: 10px; /* Space between label and input */
+}
+
+label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+
+input,
+select {
+  padding: 10px;
+  font-size: 14px;
+  width: 100%; /* Make inputs and selects take up full width of the form */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  
+}
+
+select {
+  height: 40px; /* Set the same height for select */
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* Add space between buttons */
+}
+
+select {
+  height: 40px; /* Set the same height for select */
+}
+
+
 
 
 footer {

@@ -31,65 +31,74 @@ export default function SearchModal({ isOpen, onClose, onSearch}) {
     if (!isOpen) return null; //don't reneder modal if its not open 
 
      return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <h2>Search Podcasts</h2>
-        <form onSubmit={handleSearch}>
-          <div>
-            <label>Podcast Name</label>
-            <input
-              type="text"
-              name="podcastName"
-              value={searchCriteria.podcastName}
-              onChange={handleSearchChange}
-              placeholder="Enter podcast name"
-            />
-          </div>
+       <div className="search-modal-overlay" onClick={onClose}>
+         <div
+           className="search-modal-content"
+           onClick={(e) => e.stopPropagation()}
+         >
+           <h2>Search Podcasts</h2>
+           <form onSubmit={handleSearch} className="search-form">
+             <div className="form-group">
+               <label>Podcast Name: </label>
+               <input
+                 type="text"
+                 name="podcastName"
+                 value={searchCriteria.podcastName}
+                 onChange={handleSearchChange}
+                 placeholder="Enter podcast name"
+               />
+             </div>
 
-          <div>
-            <label>Genre</label>
-            <select
-              name="genre"
-              value={searchCriteria.genre}
-              onChange={handleSearchChange}
-            >
-              <option value="">Select Genre</option>
-              <option value="1">Personal Growth</option>
-              <option value="2">Investigative Journalism</option>
-              <option value="3">History</option>
-              <option value="4">Comedy</option>
-              <option value="5">Entertainment</option>
-              <option value="6">Business</option>
-              <option value="7">Fiction</option>
-              <option value="8">News</option>
-              <option value="9">Kids and Family</option>
-            </select>
-          </div>
+             <div>
+               <label>Genre: </label>
+               <select
+                 name="genre"
+                 value={searchCriteria.genre}
+                 onChange={handleSearchChange}
+               >
+                 <option value="">Select Genre</option>
+                 <option value="1">Personal Growth</option>
+                 <option value="2">Investigative Journalism</option>
+                 <option value="3">History</option>
+                 <option value="4">Comedy</option>
+                 <option value="5">Entertainment</option>
+                 <option value="6">Business</option>
+                 <option value="7">Fiction</option>
+                 <option value="8">News</option>
+                 <option value="9">Kids and Family</option>
+               </select>
+             </div>
 
-          <div>
-            <label>Release Year</label>
-            <select
-              name="releaseYear"
-              value={searchCriteria.releaseYear}
-              onChange={handleSearchChange}
-            >
-              <option value="">Select Year</option>
-              <option value="2018">2018</option>
-              <option value="2019">2019</option>
-              <option value="2020">2020</option>
-              <option value="2021">2021</option>
-              <option value="2022">2022</option>
-            </select>
-          </div>
+             <div>
+               <label>Release Year: </label>
+               <select
+                 name="releaseYear"
+                 value={searchCriteria.releaseYear}
+                 onChange={handleSearchChange}
+               >
+                 <option value="">Select Year</option>
+                 <option value="2018">2018</option>
+                 <option value="2019">2019</option>
+                 <option value="2020">2020</option>
+                 <option value="2021">2021</option>
+                 <option value="2022">2022</option>
+               </select>
+             </div>
 
-          <button type="submit">Search</button>
-          <button type="button" onClick={onClose}>
-            Close
-          </button>
-        </form>
-      </div>
-    </div>
-  );
+             <button type="submit" className="search-submit-btn">
+               Search
+             </button>
+             <button
+               type="button"
+               className="search-close-btn"
+               onClick={onClose}
+             >
+               Close
+             </button>
+           </form>
+         </div>
+       </div>
+     );
     
 }
 
