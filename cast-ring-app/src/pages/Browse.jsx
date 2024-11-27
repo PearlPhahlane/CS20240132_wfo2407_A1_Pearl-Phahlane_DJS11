@@ -121,7 +121,7 @@ export default function Browse() {
 
   return (
     <div className="podcast-container">
-      <h1 className="page-title">Browse ALL</h1>
+      <h1 className="browse-page-title">Browse ALL</h1>
       <div className="filters">
         {/* Sort Filter */}
         <select name="sort" value={filters.sort} onChange={handleFilterChange}>
@@ -137,22 +137,29 @@ export default function Browse() {
         >
           <option value="">All Genres</option>
           {Object.keys(genreMapping).map((genreId) => (
-            <option key={genreId} value={genreId}>
+            <option
+              key={genreId}
+              value={genreId}
+            >
               {genreMapping[genreId]}
             </option>
           ))}
         </select>
 
-        {/* Release Date Filter */}
-        <input
-          type="date"
-          name="releaseDate"
-          value={filters.releaseDate}
-          onChange={handleFilterChange}
-        />
-
         {/* Clear Filters */}
-        <button onClick={clearFilters}>Clear Filters</button>
+        <button
+          onClick={clearFilters}
+          style={{
+            fontSize: "16px",
+            margin: "0",
+            padding: "15px",
+            color: "#ffffff",
+            width: "200px",
+            height: "60px",
+          }}
+        >
+          Clear Filters
+        </button>
       </div>
       {isLoading ? (
         <div className="loading">Loading...</div>
@@ -186,7 +193,7 @@ export default function Browse() {
           Next
         </button>
       </div>
-      
+
       <Modal
         podcast={selectedPodcast}
         isOpen={isModalOpen}

@@ -369,6 +369,27 @@ button:hover {
   margin-top: 50px;
 }
 
+.browse-page-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px;
+  margin-bottom: 15px;
+}
+
+select {
+  width: 200px;
+  height: 60px;
+  text-align: center;
+  font-size: 16px;
+}
+
 /* Pagination styles */
 .pagination {
   display: flex;
