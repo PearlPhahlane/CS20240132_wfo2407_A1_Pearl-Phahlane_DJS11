@@ -56,7 +56,7 @@ useEffect(() => {
    <div className="carousel-container">
      <h1>New Shows</h1>
      {isLoading ? (
-       <p>Loading...</p>
+       <div className="loading">Loading...</div>
      ) : (
        <Slider {...settings}>
          {podcasts.map((podcast) => (
