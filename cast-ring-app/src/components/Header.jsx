@@ -2,8 +2,8 @@ import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logoImg from "../assets/cast-ring-logo2.png";
 import PodcastPlayer from "./PodcastPlayer"; // Import the PodcastPlayer component
-import { FaSearch } from "react-icons/fa"; //import search icon
-import SearchModal from "./SearchModal" //import Searchmodal Component
+import { FaSearch } from "react-icons/fa"; // Import search icon
+import SearchModal from "./SearchModal"; // Import SearchModal Component
 
 const activeStyles = {
   fontWeight: "bold",
@@ -14,29 +14,32 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); // State for the modal
-  
-
   const navigate = useNavigate(); // Use useNavigate hook
 
+  // Toggle the hamburger menu open or closed
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  // Close the hamburger menu
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
 
+  // Open the search modal
   const openModal = () => {
     setIsModalOpen(true);
+    setIsMenuOpen(false); // Close the hamburger menu when search modal opens
   };
 
+  // Close the search modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
   // Handle the search from the modal
   const handleSearch = (criteria) => {
-    console.log("Searching for:", criteria); // You can add your search logic here, like filtering podcasts
+    console.log("Searching for:", criteria); // Add search logic here
 
     // Navigate to SearchResults page and pass search criteria via state
     navigate("/search-results", {
@@ -45,13 +48,13 @@ export default function Header() {
 
     closeModal(); // Close the modal after performing the search
   };
+
   return (
     <header>
       <div className="logo">
         <img src={logoImg} alt="Logo" />
       </div>
 
-      
       {/* Media Player Section */}
       <div className={`media-player ${isAudioPlaying ? "active" : ""}`}>
         <PodcastPlayer
