@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
+import { FaHeart, FaRegHeart } from "react-icons/fa"; // import heat icon from Font Awesome
 
 
 export default function PodcastDetail() {
@@ -12,6 +13,7 @@ export default function PodcastDetail() {
   const [error, setError] = useState("");
   const [selectedSeason, setSelectedSeason] = useState(""); // Track selected season
   const [episodes, setEpisodes] = useState([]); // Track episodes of selected season
+  const [favorites, setFavorites] = useState([]);
 
   // Fetch podcast data from the API
   useEffect(() => {
@@ -65,6 +67,23 @@ export default function PodcastDetail() {
     }
   };
 
+  // Handle favorite toggle for individual episode
+  const toggleFavoriteEpisode = (episode) => {
+    const updatedFavorites = favorites.includes(episode)
+      ? favorites.filter((fav) => fav !== episode)
+      : [...favorites, episode];
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Save favorites to localStorage
+  };
+
+  // Update the favorites list on initial load (from localStorage)
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(savedFavorites);
+  }, []);
+
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!podcast) return <div>Podcast not found!</div>;
@@ -117,6 +136,27 @@ export default function PodcastDetail() {
                       <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
                     </audio>
+
+                    {/* Toggle Heart Icon */}
+                    {favorites.includes(episode) ? (
+                      <FaHeart
+                        onClick={() => toggleFavoriteEpisode(episode)}
+                        style={{
+                          cursor: "pointer",
+                          color: "red",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    ) : (
+                      <FaRegHeart
+                        onClick={() => toggleFavoriteEpisode(episode)}
+                        style={{
+                          cursor: "pointer",
+                          color: "gray",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
