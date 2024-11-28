@@ -33,8 +33,12 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  height: 80px;
+  height: 100px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky;  /* Make the header sticky */
+  top: 0;  /* Stick it to the top */
+  z-index: 1000;  /* Ensure it stays on top of other content */
+  background-color: #0F2027;
 }
 
 .logo img {
