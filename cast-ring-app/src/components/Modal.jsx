@@ -1,8 +1,16 @@
 import PropTypes from "prop-types";
 import GenreMapping from "./GenreMapping";
+import { useNavigate } from "react-router-dom";  // Import useNavigate
 
 
 export default function Modal({ podcast, isOpen, onClose }) {
+  const navigate = useNavigate(); // Initialize the navigate function
+
+  // Function to handle navigation to PodcastDetail page
+  const handleSeeAllEpisodesClick = () => {
+    navigate(`/podcast/${podcast.id}`); // Navigate to the PodcastDetail page
+  };
+
   if (!isOpen || !podcast) return null;
 
   return (
@@ -17,15 +25,12 @@ export default function Modal({ podcast, isOpen, onClose }) {
         </p>
         <p>
           <strong>Genre: </strong>
-          <GenreMapping genreIds={podcast.genres} />{" "}
-          {/* Pass the genres to GenreMapping */}
+          <GenreMapping genreIds={podcast.genres} />
         </p>
         <p>
           <strong>Seasons:</strong> {podcast.seasons}
         </p>
-        <button onClick={() => console.log("Show all episodes")}>
-          See All Episodes
-        </button>
+        <button onClick={handleSeeAllEpisodesClick}>See All Episodes</button>
       </div>
     </div>
   );
