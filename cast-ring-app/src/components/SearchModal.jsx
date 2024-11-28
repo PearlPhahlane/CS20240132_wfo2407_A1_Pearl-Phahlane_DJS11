@@ -93,10 +93,8 @@ export default function SearchModal({ isOpen, onClose }) {
   const handleSuggestionClick = (id) => {
     // Navigate to the podcast detail page with the podcast ID
     navigate(`/podcast/${id}`); // Use `navigate` for navigation
-    
     // Clear the search input after selecting a suggestion
     setSearchCriteria({ podcastName: "" });
-
     onClose(); // Close the modal
   };
 

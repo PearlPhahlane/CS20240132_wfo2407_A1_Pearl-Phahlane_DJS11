@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
 import GenreMapping from "../components/GenreMapping";
+import "./browse.css";
 
 
 export default function Browse() {
