@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
+import FavoriteButton from "../components/FavoriteButton"; // Import the FavoriteButton component
 import "./favorites.css";
 
 export default function Favorites() {
@@ -11,11 +11,22 @@ export default function Favorites() {
     setFavorites(storedFavorites);
   }, []);
 
-  // Function to remove an episode from favorites
-  const removeFromFavorites = (episodeToRemove) => {
-    const updatedFavorites = favorites.filter(
-      (episode) => episode.title !== episodeToRemove.title
+  // Function to toggle favorite status
+  const toggleFavorite = (episode) => {
+    // Check if the episode is in favorites
+    const isAlreadyFavorited = favorites.some(
+      (fav) => fav.title === episode.title
     );
+
+    let updatedFavorites;
+    if (isAlreadyFavorited) {
+      // Remove episode from favorites if it's already favorited
+      updatedFavorites = favorites.filter((fav) => fav.title !== episode.title);
+    } else {
+      // Add episode to favorites if it's not already favorited
+      updatedFavorites = [...favorites, episode];
+    }
+
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
@@ -36,12 +47,12 @@ export default function Favorites() {
                   <source src={episode.file} type="audio/mp3" />
                   Your browser does not support the audio element.
                 </audio>
-                <div
-                  className="favorite-heart"
-                  onClick={() => removeFromFavorites(episode)}
-                  title="Remove from Favorites"
-                >
-                  <FaHeart className="heart-icon heart-filled" />
+                <div className="favorite-heart">
+                  <FavoriteButton
+                    episode={episode} // Pass episode data
+                    isFavorite={true} // Since it's in the favorites, it's always true
+                    toggleFavorite={toggleFavorite} // Pass the toggleFavorite function
+                  />
                 </div>
               </div>
             </div>

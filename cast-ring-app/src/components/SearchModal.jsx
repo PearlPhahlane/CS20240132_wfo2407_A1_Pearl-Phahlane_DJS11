@@ -79,6 +79,7 @@ export default function SearchModal({ isOpen, onClose }) {
       if (selectedPodcast) {
         // Navigate to the podcast detail page
         navigate(`/podcast/${selectedPodcast.id}`);
+        setSearchCriteria({ podcastName: "" }); // Clear the search input after successful search
         onClose(); // Close the modal after search
       } else {
         alert("Podcast not found");
@@ -92,6 +93,10 @@ export default function SearchModal({ isOpen, onClose }) {
   const handleSuggestionClick = (id) => {
     // Navigate to the podcast detail page with the podcast ID
     navigate(`/podcast/${id}`); // Use `navigate` for navigation
+    
+    // Clear the search input after selecting a suggestion
+    setSearchCriteria({ podcastName: "" });
+
     onClose(); // Close the modal
   };
 
