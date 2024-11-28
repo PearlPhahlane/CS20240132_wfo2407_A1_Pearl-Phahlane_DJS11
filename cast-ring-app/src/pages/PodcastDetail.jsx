@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
-
+import FavoriteButton from "../components/FavoriteButton";
 
 
 export default function PodcastDetail() {
@@ -67,22 +67,6 @@ export default function PodcastDetail() {
     }
   };
 
-  // Handle favorite toggle for individual episode
-  const toggleFavoriteEpisode = (episode) => {
-    const updatedFavorites = favorites.includes(episode)
-      ? favorites.filter((fav) => fav !== episode)
-      : [...favorites, episode];
-
-    setFavorites(updatedFavorites);
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites)); // Save favorites to localStorage
-  };
-
-  // Update the favorites list on initial load (from localStorage)
-  useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    setFavorites(savedFavorites);
-  }, []);
-
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -137,26 +121,12 @@ export default function PodcastDetail() {
                       Your browser does not support the audio element.
                     </audio>
 
-                    {/* Toggle Heart Icon */}
-                    {favorites.includes(episode) ? (
-                      <FaHeart
-                        onClick={() => toggleFavoriteEpisode(episode)}
-                        style={{
-                          cursor: "pointer",
-                          color: "red",
-                          marginLeft: "10px",
-                        }}
-                      />
-                    ) : (
-                      <FaRegHeart
-                        onClick={() => toggleFavoriteEpisode(episode)}
-                        style={{
-                          cursor: "pointer",
-                          color: "gray",
-                          marginLeft: "10px",
-                        }}
-                      />
-                    )}
+                    {/* Use FavoriteButton to toggle favorite for each episode */}
+                    <FavoriteButton
+                      episode={episode}
+                      favorites={favorites}
+                      setFavorites={setFavorites}
+                    />
                   </li>
                 ))}
               </ul>
