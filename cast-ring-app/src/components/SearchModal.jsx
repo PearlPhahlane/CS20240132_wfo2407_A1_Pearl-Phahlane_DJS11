@@ -13,6 +13,7 @@ export default function SearchModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false); // To manage loading state
   const [error, setError] = useState(""); // To handle any errors
   const [allPodcasts, setAllPodcasts] = useState([]); // Store all podcasts for filtering
+  const [isSmallScreen, setIsSmallScreen] = useState(false); // State for detecting small screen
 
   const navigate = useNavigate(); // Initialize navigate hook
 
@@ -67,6 +68,17 @@ export default function SearchModal({ isOpen, onClose }) {
     }
   }, [searchCriteria.podcastName, allPodcasts]); // Filter when searchCriteria or allPodcasts change
 
+  // Detect screen size for auto-close behavior
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth <= 768); // Adjust 768px to your small screen breakpoint
+    };
+
+    checkScreenSize();
+    window.addEventListener("resize", checkScreenSize);
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
   // Handle the search form submission
   const handleSearch = (e) => {
     e.preventDefault();
@@ -81,7 +93,9 @@ export default function SearchModal({ isOpen, onClose }) {
         // Navigate to the podcast detail page
         navigate(`/podcast/${selectedPodcast.id}`);
         setSearchCriteria({ podcastName: "" }); // Clear the search input after successful search
-        onClose(); // Close the modal after search
+        if (isSmallScreen) {
+          onClose(); // Close the modal automatically if on a small screen
+        }
       } else {
         alert("Podcast not found");
       }
@@ -96,7 +110,9 @@ export default function SearchModal({ isOpen, onClose }) {
     navigate(`/podcast/${id}`); // Use `navigate` for navigation
     // Clear the search input after selecting a suggestion
     setSearchCriteria({ podcastName: "" });
-    onClose(); // Close the modal
+    if (isSmallScreen) {
+      onClose(); // Close the modal on small screens
+    }
   };
 
   if (!isOpen) return null; // Don't render modal if not open
@@ -155,5 +171,4 @@ export default function SearchModal({ isOpen, onClose }) {
 SearchModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSearch: PropTypes.func.isRequired, // Pass search criteria to parent component
 };
