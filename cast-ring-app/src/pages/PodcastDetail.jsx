@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
-import { FaHeart, FaRegHeart } from "react-icons/fa"; // import heat icon from Font Awesome
+
 
 
 export default function PodcastDetail() {
