@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
 import FavoriteButton from "../components/FavoriteButton";
+import "./podcastDetails.css";
 
 export default function PodcastDetail() {
   const { podcastId } = useParams();
@@ -95,6 +96,9 @@ export default function PodcastDetail() {
 
   return (
     <div className="podcast-detail">
+      <div className="image">
+          <img src={podcast.image} alt={podcast.title} />
+        </div>
       <div className="content">
         <div className="description">
           <h2>{podcast.title}</h2>
@@ -150,9 +154,7 @@ export default function PodcastDetail() {
             </div>
           )}
         </div>
-        <div className="image">
-          <img src={podcast.image} alt={podcast.title} />
-        </div>
+        
       </div>
     </div>
   );
