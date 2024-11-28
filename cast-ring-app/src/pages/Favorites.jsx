@@ -1,39 +1,52 @@
 import { useState, useEffect } from "react";
-import FavoriteButton from "../components/FavoriteButton";
+import { FaHeart } from "react-icons/fa";
+import "./favorites.css";
 
 export default function Favorites() {
   const [favorites, setFavorites] = useState([]);
+
   // Fetch favorites from localStorage
   useEffect(() => {
     const storedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(storedFavorites);
   }, []);
 
+  // Function to remove an episode from favorites
+  const removeFromFavorites = (episodeToRemove) => {
+    const updatedFavorites = favorites.filter(
+      (episode) => episode.title !== episodeToRemove.title
+    );
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
   return (
     <div className="favorites">
       <h2>Your Favorite Episodes</h2>
       {favorites.length === 0 ? (
-        <p>No favorites yet!</p>
+        <p className="no-favorites">No favorites yet!</p>
       ) : (
-        <ul>
+        <div className="favorites-list">
           {favorites.map((episode, index) => (
-            <li key={index}>
+            <div key={index} className="favorite-item">
               <h4>{episode.title}</h4>
               <p>{episode.description}</p>
-              <audio controls>
-                <source src={episode.file} type="audio/mp3" />
-                Your browser does not support the audio element.
-              </audio>
-
-              {/* Use FavoriteButton component to handle favoriting each episode */}
-              <FavoriteButton
-                episode={episode}
-                favorites={favorites}
-                setFavorites={setFavorites}
-              />
-            </li>
+              <div className="audio-container">
+                <audio controls>
+                  <source src={episode.file} type="audio/mp3" />
+                  Your browser does not support the audio element.
+                </audio>
+                <div
+                  className="favorite-heart"
+                  onClick={() => removeFromFavorites(episode)}
+                  title="Remove from Favorites"
+                >
+                  <FaHeart className="heart-icon heart-filled" />
+                </div>
+              </div>
+            </div>
           ))}
-        </ul>
+        </div>
       )}
     </div>
   );

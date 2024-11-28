@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
-import FavoriteButton from "../components/FavoriteButton";
-
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export default function PodcastDetail() {
   const { podcastId } = useParams();
@@ -11,18 +10,17 @@ export default function PodcastDetail() {
   const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [selectedSeason, setSelectedSeason] = useState(""); // Track selected season
-  const [episodes, setEpisodes] = useState([]); // Track episodes of selected season
+  const [selectedSeason, setSelectedSeason] = useState("");
+  const [episodes, setEpisodes] = useState([]);
   const [favorites, setFavorites] = useState([]);
 
-  // Fetch podcast data from the API
+  // Fetch podcast data
   useEffect(() => {
     const fetchPodcastData = async () => {
       setLoading(true);
       setError("");
 
       try {
-        // Fetch podcast details
         const podcastResponse = await fetch(
           `https://podcast-api.netlify.app/id/${podcastId}`
         );
@@ -32,14 +30,12 @@ export default function PodcastDetail() {
         const podcastData = await podcastResponse.json();
         setPodcast(podcastData);
 
-        // Fetch all shows to get genres
         const showsResponse = await fetch("https://podcast-api.netlify.app/");
         if (!showsResponse.ok) {
           throw new Error("Failed to fetch shows");
         }
         const shows = await showsResponse.json();
 
-        // Find the current podcast and extract its genres
         const currentShow = shows.find((show) => show.id === podcastId);
         if (currentShow && currentShow.genres) {
           setGenres(currentShow.genres);
@@ -54,12 +50,16 @@ export default function PodcastDetail() {
     fetchPodcastData();
   }, [podcastId]);
 
-  // Handle season change
+  // Load favorites from localStorage when the component mounts
+  useEffect(() => {
+    const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    setFavorites(savedFavorites);
+  }, []);
+
   const handleSeasonChange = (e) => {
     const selected = e.target.value;
     setSelectedSeason(selected);
     if (selected && podcast) {
-      // Get the selected season data
       const seasonData = podcast.seasons.find(
         (season) => season.season === parseInt(selected)
       );
@@ -67,6 +67,27 @@ export default function PodcastDetail() {
     }
   };
 
+  // Toggle favorite status
+  const toggleFavoriteEpisode = (episode) => {
+    // Check if the episode is already in favorites
+    const isAlreadyFavorited = favorites.some(
+      (fav) => fav.title === episode.title
+    );
+
+    let updatedFavorites;
+
+    if (isAlreadyFavorited) {
+      // Remove episode from favorites if it's already favorited
+      updatedFavorites = favorites.filter((fav) => fav.title !== episode.title);
+    } else {
+      // Add episode to favorites if it's not already favorited
+      updatedFavorites = [...favorites, episode];
+    }
+
+    // Update state and localStorage
+    setFavorites(updatedFavorites);
+    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -77,17 +98,13 @@ export default function PodcastDetail() {
       <div className="content">
         <div className="description">
           <h2>{podcast.title}</h2>
-
-          {/* Display genres if available */}
           {genres.length > 0 && (
             <div className="podcast-genres">
               <strong>Genres: </strong>
               <GenreMapping genreIds={genres} />
             </div>
           )}
-
           <p>{podcast.description}</p>
-
           <div>
             <strong>Seasons: </strong>
             <select
@@ -103,8 +120,6 @@ export default function PodcastDetail() {
               ))}
             </select>
           </div>
-
-          {/* Display episodes when a season is selected */}
           {episodes.length > 0 && (
             <div className="episodes">
               <h3>Episodes:</h3>
@@ -120,13 +135,25 @@ export default function PodcastDetail() {
                       <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
                     </audio>
-
-                    {/* Use FavoriteButton to toggle favorite for each episode */}
-                    <FavoriteButton
-                      episode={episode}
-                      favorites={favorites}
-                      setFavorites={setFavorites}
-                    />
+                    {favorites.includes(episode) ? (
+                      <FaHeart
+                        onClick={() => toggleFavoriteEpisode(episode)}
+                        style={{
+                          cursor: "pointer",
+                          color: "red",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    ) : (
+                      <FaRegHeart
+                        onClick={() => toggleFavoriteEpisode(episode)}
+                        style={{
+                          cursor: "pointer",
+                          color: "gray",
+                          marginLeft: "10px",
+                        }}
+                      />
+                    )}
                   </li>
                 ))}
               </ul>
