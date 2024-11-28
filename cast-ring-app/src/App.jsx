@@ -7,15 +7,11 @@ import Browse from "./pages/Browse";
 import Favorites from "./pages/Favorites";
 import PodcastDetail from "./pages/PodcastDetail";
 import Layout from './components/Layout';
-import AudioPlayerProvider from "./AudioPlayerContex";
 
 
 function App() {
   return (
     <BrowserRouter>
-      <AudioPlayerProvider>
-        {" "}
-        {/* Wrap application with the provider */}
         <Routes>
           {/* Route for landingpage at '/' */}
           <Route path="/" element={<LandingPage />} />
@@ -28,7 +24,6 @@ function App() {
             <Route path="podcast/:podcastId" element={<PodcastDetail />} />
           </Route>
         </Routes>
-      </AudioPlayerProvider>
     </BrowserRouter>
   );
 }
