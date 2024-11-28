@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
-import { FaHeart, FaRegHeart } from "react-icons/fa";
+import FavoriteButton from "../components/FavoriteButton";
 
 export default function PodcastDetail() {
   const { podcastId } = useParams();
@@ -135,25 +135,15 @@ export default function PodcastDetail() {
                       <source src={episode.file} type="audio/mp3" />
                       Your browser does not support the audio element.
                     </audio>
-                    {favorites.includes(episode) ? (
-                      <FaHeart
-                        onClick={() => toggleFavoriteEpisode(episode)}
-                        style={{
-                          cursor: "pointer",
-                          color: "red",
-                          marginLeft: "10px",
-                        }}
-                      />
-                    ) : (
-                      <FaRegHeart
-                        onClick={() => toggleFavoriteEpisode(episode)}
-                        style={{
-                          cursor: "pointer",
-                          color: "gray",
-                          marginLeft: "10px",
-                        }}
-                      />
-                    )}
+
+                    <FavoriteButton
+                      episode={episode}
+                      isFavorite={favorites.some(
+                        (fav) => fav.title === episode.title
+                      )}
+                      toggleFavorite={toggleFavoriteEpisode}
+                    />
+                    
                   </li>
                 ))}
               </ul>
