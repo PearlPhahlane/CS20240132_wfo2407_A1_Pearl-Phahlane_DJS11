@@ -13,7 +13,7 @@ export default function SearchModal({ isOpen, onClose }) {
   const [loading, setLoading] = useState(false); // To manage loading state
   const [error, setError] = useState(""); // To handle any errors
   const [allPodcasts, setAllPodcasts] = useState([]); // Store all podcasts for filtering
-  const [isSmallScreen, setIsSmallScreen] = useState(false); // State for detecting small screen
+  
 
   const navigate = useNavigate(); // Initialize navigate hook
 
@@ -68,16 +68,16 @@ export default function SearchModal({ isOpen, onClose }) {
     }
   }, [searchCriteria.podcastName, allPodcasts]); // Filter when searchCriteria or allPodcasts change
 
-  // Detect screen size for auto-close behavior
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth <= 768); // Adjust 768px to your small screen breakpoint
-    };
+  
 
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
-  }, []);
+  // Function to handle suggestion click
+  const handleSuggestionClick = (id) => {
+    // Navigate to the podcast detail page with the podcast ID
+    navigate(`/podcast/${id}`); // Use `navigate` for navigation
+    // Clear the search input after selecting a suggestion
+    setSearchCriteria({ podcastName: "" });
+    onClose(); // Close the modal on any suggestion click
+  };
 
   // Handle the search form submission
   const handleSearch = (e) => {
@@ -93,9 +93,7 @@ export default function SearchModal({ isOpen, onClose }) {
         // Navigate to the podcast detail page
         navigate(`/podcast/${selectedPodcast.id}`);
         setSearchCriteria({ podcastName: "" }); // Clear the search input after successful search
-        if (isSmallScreen) {
-          onClose(); // Close the modal automatically if on a small screen
-        }
+        onClose(); // Close the modal after search
       } else {
         alert("Podcast not found");
       }
@@ -103,25 +101,20 @@ export default function SearchModal({ isOpen, onClose }) {
       alert("Please enter a podcast name to search.");
     }
   };
-
-  // Function to handle suggestion click
-  const handleSuggestionClick = (id) => {
-    // Navigate to the podcast detail page with the podcast ID
-    navigate(`/podcast/${id}`); // Use `navigate` for navigation
-    // Clear the search input after selecting a suggestion
-    setSearchCriteria({ podcastName: "" });
-    if (isSmallScreen) {
-      onClose(); // Close the modal on small screens
-    }
+  // Function to handle close button click
+  const handleClose = () => {
+    onClose(); // Close the modal when the close button is clicked
   };
 
   if (!isOpen) return null; // Don't render modal if not open
 
   return (
     <div className="search-modal-overlay" onClick={onClose}>
+      {" "}
+      {/* Close modal when clicking outside */}
       <div
         className="search-modal-content"
-        onClick={(e) => e.stopPropagation()}
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal content
       >
         <h2>Search Podcasts</h2>
         <form onSubmit={handleSearch} className="search-form">
@@ -159,7 +152,11 @@ export default function SearchModal({ isOpen, onClose }) {
           <button type="submit" className="search-submit-btn">
             Search
           </button>
-          <button type="button" className="search-close-btn" onClick={onClose}>
+          <button
+            type="button"
+            className="search-close-btn"
+            onClick={handleClose}
+          >
             Close
           </button>
         </form>
