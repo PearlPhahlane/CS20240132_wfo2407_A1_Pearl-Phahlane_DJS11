@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import "./searchModal.css";
 
 // Search Modal Component
 export default function SearchModal({ isOpen, onClose }) {
