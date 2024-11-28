@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
 import FavoriteButton from "../components/FavoriteButton";
+import { FaPlay, FaPause } from "react-icons/fa";
 import "./podcastDetails.css";
 
 export default function PodcastDetail() {
@@ -14,6 +15,8 @@ export default function PodcastDetail() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const [favorites, setFavorites] = useState([]);
+  const [audioPlaying, setAudioPlaying] = useState(null); // State to manage which audio is playing
+  const [audioElement, setAudioElement] = useState(null); // To reference the audio element for control
 
   // Fetch podcast data
   useEffect(() => {
@@ -68,6 +71,21 @@ export default function PodcastDetail() {
     }
   };
 
+  const handlePlayPause = (episode) => {
+    // Toggle play/pause based on current state
+    if (audioPlaying === episode.title) {
+      // Pause the audio if it's currently playing
+      audioElement.pause();
+      setAudioPlaying(null);
+    } else {
+      // Play the audio if it's not playing
+      const newAudioElement = new Audio(episode.file);
+      setAudioElement(newAudioElement);
+      newAudioElement.play();
+      setAudioPlaying(episode.title);
+    }
+  };
+
   // Toggle favorite status
   const toggleFavoriteEpisode = (episode) => {
     // Check if the episode is already in favorites
@@ -97,8 +115,8 @@ export default function PodcastDetail() {
   return (
     <div className="podcast-detail">
       <div className="image">
-          <img src={podcast.image} alt={podcast.title} />
-        </div>
+        <img src={podcast.image} alt={podcast.title} />
+      </div>
       <div className="content">
         <div className="description">
           <h2>{podcast.title}</h2>
@@ -135,11 +153,16 @@ export default function PodcastDetail() {
                     <p>
                       <strong>Episode {episode.episode}</strong>
                     </p>
-                    <audio controls>
-                      <source src={episode.file} type="audio/mp3" />
-                      Your browser does not support the audio element.
-                    </audio>
-
+                    <button
+                      className="play-pause-btn"
+                      onClick={() => handlePlayPause(episode)}
+                    >
+                      {audioPlaying === episode.title ? (
+                        <FaPause size={24} />
+                      ) : (
+                        <FaPlay size={24} />
+                      )}
+                    </button>
                     <FavoriteButton
                       episode={episode}
                       isFavorite={favorites.some(
@@ -147,14 +170,12 @@ export default function PodcastDetail() {
                       )}
                       toggleFavorite={toggleFavoriteEpisode}
                     />
-                    
                   </li>
                 ))}
               </ul>
             </div>
           )}
         </div>
-        
       </div>
     </div>
   );
