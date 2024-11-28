@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
+import "./browser.css";
 
 const genreMapping = {
   1: "Personal Growth",
@@ -29,7 +30,7 @@ export default function Browse() {
   const [podcastsPerPage] = useState(10);
 
   const location = useLocation();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app")
@@ -88,15 +89,15 @@ export default function Browse() {
     }));
   };
 
-  const clearFilters = () => {
-    setFilters({
-      sort: "alphabetical",
-      genre: "",
-      releaseDate: "",
-    });
-    setCurrentPage(1);
-    Navigate.push(location.pathname);
-  };
+ const clearFilters = () => {
+   setFilters({
+     sort: "alphabetical", // Reset to default sorting
+     genre: "",
+     releaseDate: "",
+   });
+   setCurrentPage(1); // Reset page to 1 when clearing filters
+   navigate(location.pathname); // Use navigate() here
+ };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
