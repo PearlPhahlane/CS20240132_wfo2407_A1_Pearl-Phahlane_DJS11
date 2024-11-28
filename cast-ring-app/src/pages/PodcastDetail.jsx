@@ -2,18 +2,6 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 
-// Hardcoded genres
-const genreMapping = {
-  1: "Personal Growth",
-  2: "Investigative Journalism",
-  3: "History",
-  4: "Comedy",
-  5: "Entertainment",
-  6: "Business",
-  7: "Fiction",
-  8: "News",
-  9: "Kids and Family",
-};
 
 export default function PodcastDetail() {
   const { podcastId } = useParams();
@@ -71,16 +59,9 @@ export default function PodcastDetail() {
         <div className="description">
           <h2>{podcast.title}</h2>
           <p>{podcast.description}</p>
+          
           <div>
-            <strong>Genres:</strong>
-            {podcast.genres
-              ? podcast.genres
-                  .map((genreId) => genreMapping[genreId])
-                  .join(", ")
-              : "No genres available"}
-          </div>
-          <div>
-            <strong>Seasons:</strong>
+            <strong>Seasons: </strong>
             <select
               value={selectedSeason}
               onChange={handleSeasonChange}

@@ -3,6 +3,7 @@ import Modal from "../components/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
 
 
+
 //Hardcode genre mapping
 const genreMapping = {
   1: "Personal Growth",
