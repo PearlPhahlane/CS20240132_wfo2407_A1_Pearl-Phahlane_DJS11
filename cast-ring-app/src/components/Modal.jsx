@@ -16,6 +16,7 @@ export default function Modal({ podcast, isOpen, onClose }) {
           <strong>Title:</strong> {podcast.title}
         </p>
         <p>
+          <strong>Genre: </strong>
           <GenreMapping genreIds={podcast.genres} />{" "}
           {/* Pass the genres to GenreMapping */}
         </p>
