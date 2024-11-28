@@ -498,3 +498,134 @@ button:hover {
   font-size: 1.2rem;
   color: #fff;
 }
+
+/*Browser*/
+
+.podcast-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+
+}
+
+.podcast-grid-container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+  gap: 20px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+.podcast-item {
+  background-color: #2c5364;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.podcast-item:hover {
+  transform: scale(1.05);
+}
+
+.podcast-image {
+  width: 100%;
+  height: auto;
+  border-bottom: 3px solid #ffd369;
+}
+
+.podcast-title {
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #203a43;
+}
+
+.loading {
+  color: #ffd369;
+  text-align: center;
+  font-size: 24px;
+  margin-top: 50px;
+}
+
+.browse-page-title {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.filters {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 15px;
+  padding: 30px;
+  margin-bottom: 15px;
+}
+
+select {
+  width: 200px;
+  height: 60px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Pagination styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  gap: 15px;
+}
+
+.pagination button {
+  background-color: #2c5364;
+  color: #ffd369;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.pagination button:hover {
+  background-color: #ffd369;
+  color: #2c5364;
+  transform: scale(1.1);
+}
+
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: scale(1);
+}
+
+.pagination span {
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* Responsive tweaks for pagination */
+@media (max-width: 768px) {
+  .pagination button {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+  
+  .pagination span {
+    font-size: 14px;
+  }
+}
