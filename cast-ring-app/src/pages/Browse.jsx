@@ -1,21 +1,8 @@
 import { useState, useEffect } from "react";
 import Modal from "../components/Modal";
 import { useLocation, useNavigate } from "react-router-dom";
+import GenreMapping from "../components/GenreMapping";
 
-
-
-//Hardcode genre mapping
-const genreMapping = {
-  1: "Personal Growth",
-  2: "Investigative Journalism",
-  3: "History",
-  4: "Comedy",
-  5: "Entertainment",
-  6: "Business",
-  7: "Fiction",
-  8: "News",
-  9: "Kids and Family",
-};
 
 export default function Browse() {
   const [podcasts, setPodcasts] = useState([]); // To store the podcasts
@@ -137,9 +124,9 @@ export default function Browse() {
           onChange={handleFilterChange}
         >
           <option value="">All Genres</option>
-          {Object.keys(genreMapping).map((genreId) => (
+          {Object.keys(GenreMapping).map((genreId) => (
             <option key={genreId} value={genreId}>
-              {genreMapping[genreId]}
+              {GenreMapping[genreId].name}
             </option>
           ))}
         </select>
