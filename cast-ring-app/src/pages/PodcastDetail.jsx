@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
+import GenreMapping from "../components/GenreMapping";
 
 
 export default function PodcastDetail() {
   const { podcastId } = useParams();
   const [podcast, setPodcast] = useState(null);
+  const [genres, setGenres] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [selectedSeason, setSelectedSeason] = useState(""); // Track selected season
@@ -13,19 +15,33 @@ export default function PodcastDetail() {
 
   // Fetch podcast data from the API
   useEffect(() => {
-    const fetchPodcast = async () => {
+    const fetchPodcastData = async () => {
       setLoading(true);
       setError("");
 
       try {
-        const response = await fetch(
+        // Fetch podcast details
+        const podcastResponse = await fetch(
           `https://podcast-api.netlify.app/id/${podcastId}`
         );
-        if (!response.ok) {
-          throw new Error("Failed to fetch podcast");
+        if (!podcastResponse.ok) {
+          throw new Error("Failed to fetch podcast details");
         }
-        const data = await response.json();
-        setPodcast(data);
+        const podcastData = await podcastResponse.json();
+        setPodcast(podcastData);
+
+        // Fetch all shows to get genres
+        const showsResponse = await fetch("https://podcast-api.netlify.app/");
+        if (!showsResponse.ok) {
+          throw new Error("Failed to fetch shows");
+        }
+        const shows = await showsResponse.json();
+
+        // Find the current podcast and extract its genres
+        const currentShow = shows.find((show) => show.id === podcastId);
+        if (currentShow && currentShow.genres) {
+          setGenres(currentShow.genres);
+        }
       } catch (err) {
         setError(err.message);
       } finally {
@@ -33,7 +49,7 @@ export default function PodcastDetail() {
       }
     };
 
-    fetchPodcast();
+    fetchPodcastData();
   }, [podcastId]);
 
   // Handle season change
@@ -58,8 +74,17 @@ export default function PodcastDetail() {
       <div className="content">
         <div className="description">
           <h2>{podcast.title}</h2>
+
+          {/* Display genres if available */}
+          {genres.length > 0 && (
+            <div className="podcast-genres">
+              <strong>Genres: </strong>
+              <GenreMapping genreIds={genres} />
+            </div>
+          )}
+
           <p>{podcast.description}</p>
-          
+
           <div>
             <strong>Seasons: </strong>
             <select
@@ -107,27 +132,24 @@ export default function PodcastDetail() {
 }
 
 PodcastDetail.propTypes = {
-  podcasts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      title: PropTypes.string.isRequired,
-      image: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      seasons: PropTypes.arrayOf(
-        PropTypes.shape({
-          season: PropTypes.number.isRequired,
-          title: PropTypes.string.isRequired,
-          episodes: PropTypes.arrayOf(
-            PropTypes.shape({
-              episode: PropTypes.number.isRequired,
-              title: PropTypes.string.isRequired,
-              description: PropTypes.string.isRequired,
-              file: PropTypes.string.isRequired,
-            })
-          ).isRequired,
-        })
-      ).isRequired,
-      genres: PropTypes.arrayOf(PropTypes.number).isRequired,
-    })
-  )
+  podcast: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    seasons: PropTypes.arrayOf(
+      PropTypes.shape({
+        season: PropTypes.number.isRequired,
+        title: PropTypes.string.isRequired,
+        episodes: PropTypes.arrayOf(
+          PropTypes.shape({
+            episode: PropTypes.number.isRequired,
+            title: PropTypes.string.isRequired,
+            description: PropTypes.string.isRequired,
+            file: PropTypes.string.isRequired,
+          })
+        ).isRequired,
+      })
+    ).isRequired,
+  }),
 };
