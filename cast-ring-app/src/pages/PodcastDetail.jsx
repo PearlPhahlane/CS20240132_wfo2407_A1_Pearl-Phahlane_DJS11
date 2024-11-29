@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
 import FavoriteButton from "../components/FavoriteButton";
-import { FaPlay, FaPause } from "react-icons/fa";
+import { FaPlay, FaPause, FaVolumeUp } from "react-icons/fa";
 import "./podcastDetails.css";
 
 export default function PodcastDetail() {
@@ -15,10 +15,10 @@ export default function PodcastDetail() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [audioPlaying, setAudioPlaying] = useState(null); // State to manage which audio is playing
-  const [audioElement, setAudioElement] = useState(null); // To reference the audio element for control
+  const [audioPlaying, setAudioPlaying] = useState(null);
+  const audioElement = useRef (new Audio());
+  const [volume, setVolume] = useState(1); // Default volume to 100%
 
-  // Fetch podcast data
   useEffect(() => {
     const fetchPodcastData = async () => {
       setLoading(true);
@@ -39,8 +39,8 @@ export default function PodcastDetail() {
           throw new Error("Failed to fetch shows");
         }
         const shows = await showsResponse.json();
-
         const currentShow = shows.find((show) => show.id === podcastId);
+
         if (currentShow && currentShow.genres) {
           setGenres(currentShow.genres);
         }
@@ -54,7 +54,6 @@ export default function PodcastDetail() {
     fetchPodcastData();
   }, [podcastId]);
 
-  // Load favorites from localStorage when the component mounts
   useEffect(() => {
     const savedFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(savedFavorites);
@@ -72,40 +71,36 @@ export default function PodcastDetail() {
   };
 
   const handlePlayPause = (episode) => {
-    // Toggle play/pause based on current state
     if (audioPlaying === episode.title) {
-      // Pause the audio if it's currently playing
       audioElement.pause();
       setAudioPlaying(null);
     } else {
-      // Play the audio if it's not playing
-      const newAudioElement = new Audio(episode.file);
-      setAudioElement(newAudioElement);
-      newAudioElement.play();
+      audioElement.src = episode.file;
+      audioElement.play();
       setAudioPlaying(episode.title);
     }
   };
 
-  // Toggle favorite status
   const toggleFavoriteEpisode = (episode) => {
-    // Check if the episode is already in favorites
     const isAlreadyFavorited = favorites.some(
       (fav) => fav.title === episode.title
     );
 
     let updatedFavorites;
-
     if (isAlreadyFavorited) {
-      // Remove episode from favorites if it's already favorited
       updatedFavorites = favorites.filter((fav) => fav.title !== episode.title);
     } else {
-      // Add episode to favorites if it's not already favorited
       updatedFavorites = [...favorites, episode];
     }
 
-    // Update state and localStorage
     setFavorites(updatedFavorites);
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
+  };
+
+  const handleVolumeChange = (e) => {
+    const newVolume = e.target.value;
+    setVolume(newVolume);
+    audioElement.volume = newVolume;
   };
 
   if (loading) return <div>Loading...</div>;
@@ -176,6 +171,31 @@ export default function PodcastDetail() {
             </div>
           )}
         </div>
+      </div>
+      <div className="audio-player">
+        <button
+          className="play-pause-btn"
+          onClick={() => {
+            if (audioPlaying) {
+              audioElement.pause();
+              setAudioPlaying(null);
+            } else {
+              audioElement.play();
+            }
+          }}
+        >
+          {audioPlaying ? <FaPause /> : <FaPlay />}
+        </button>
+        <input
+          type="range"
+          min="0"
+          max="1"
+          step="0.01"
+          value={volume}
+          onChange={handleVolumeChange}
+          className="volume-slider"
+        />
+        <FaVolumeUp />
       </div>
     </div>
   );
