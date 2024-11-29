@@ -22,9 +22,9 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  min-width: 1360px; /* Set the minimum width for large screens */
+  min-width: 800px; /* Reduced minimum width */
   max-width: 100%; /* Ensure it doesn't exceed the container width */
-  margin-left: 20px; /* Move it to the right */
+  margin-left: 10px; /* Adjusted margin for better spacing */
   box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
@@ -146,6 +146,30 @@
   .image img {
     max-width: 100%;
     margin-top: 20px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .description {
+    min-width: 600px; /* Lower minimum width for medium screens */
+    margin-left: 5px; /* Reduce margin */
+  }
+}
+
+@media (max-width: 768px) {
+  .description {
+    padding: 15px;
+    width: 100%;
+    min-width: unset; /* Remove minimum width constraint */
+    margin-left: 0; /* Reset margin */
+  }
+}
+
+@media (max-width: 480px) {
+  .description {
+    padding: 10px;
+    width: 100%; /* Full width on small screens */
   }
 }
 
