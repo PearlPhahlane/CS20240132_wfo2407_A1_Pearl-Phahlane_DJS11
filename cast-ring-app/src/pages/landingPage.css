@@ -1,75 +1,167 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .landing-container {
-  position: relative; /* Make sure the container is positioned */
+  position: relative;
   min-height: 100vh;
-  width: 100%; 
+  width: 100%;
   padding: 45px 23px;
-  color: white; /* Set text color to white for visibility */
+  color: white;
   background-image: url('/src/assets/landing-hero.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column; /* Stack text vertically by default */
 }
 
 .landing-container::after {
-  content: ''; /* Create an empty element */
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.8); /* Semi-transparent black overlay */
-  z-index: 1; /* Place the overlay above the image */
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  transition: background 0.3s ease;
 }
 
-
 .landing-container h1,
-.landing-container p, 
+.landing-container p,
 .landing-container a {
   position: relative;
-  z-index: 2; /* Ensure text is on top of the overlay */
+  z-index: 2;
   margin: 0;
-  padding: 20px;
+  padding: 10px;
+  opacity: 0; /* Initially hidden for animation */
 }
 
 .landing-container h1 {
-    color: #fffceb;
-    font-weight: 600;
-    line-height: 42px;
+  color: #fffceb;
+  font-weight: 600;
+  font-size: 2.5rem;
+  line-height: 1.2;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  letter-spacing: 2px;
+  animation: popOut 1.5s ease-out forwards;
 }
 
 .landing-container p {
-    line-height: 24px;
-    color: #fffceb;
+  line-height: 24px;
+  color: #fffceb;
+  font-size: 1.1rem;
+  animation: popOut 2s ease-out forwards;
 }
 
 .landing-container a {
-    display: inline-block;
-    text-align: center;
-    text-decoration: none;
-    background-color: #e09f3e;
-    color: #fffceb;
-    font-weight: 600;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 20px;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  background-color: #e09f3e;
+  color: #fffceb;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeIn 2s ease-in-out forwards;
 }
 
+.landing-container a:hover {
+  background-color: #ffd369;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
 
-/* Responsiveness*/
+/* Fun Animations */
+@keyframes popOut {
+  0% {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(20px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Make text elements horizontally aligned with space between them */
+.landing-container {
+  flex-direction: row; /* Align items horizontally */
+  justify-content: space-around; /* Space out the elements */
+  align-items: center; /* Center them vertically */
+  text-align: left; /* Align text to the left for readability */
+}
+
+/* Ensuring individual elements are spaced well */
+.landing-container h1,
+.landing-container p,
+.landing-container a {
+  display: inline-block; /* Make them inline to allow flexible positioning */
+  margin: 0 10px; /* Add space between the elements */
+}
+
+/* Responsiveness */
 @media (max-width: 768px) {
   .landing-container {
-    min-height: 100vh; /* Keep the full viewport height */
+    min-height: 100vh;
+    padding: 30px;
+    background-size: cover;
+    flex-direction: column; /* Stack vertically on smaller screens */
+  }
+
+  .landing-container h1 {
+    font-size: 2rem;
+  }
+
+  .landing-container p {
+    font-size: 1rem;
+  }
+
+  .landing-container a {
+    padding: 12px 35px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .landing-container {
-    padding: 20px; /* More padding for small screens */
+    padding: 20px;
+  }
+
+  .landing-container h1 {
+    font-size: 1.8rem;
+  }
+
+  .landing-container p {
+    font-size: 1rem;
+  }
+
+  .landing-container a {
+    padding: 10px 25px;
+    font-size: 0.9rem;
   }
 }

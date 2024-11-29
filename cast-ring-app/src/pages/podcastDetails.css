@@ -9,17 +9,23 @@
   display: flex;
   flex-direction: row-reverse;
   gap: 40px;
-  max-width: 1200px;
+  max-width: 1360px; /* Set the maximum width for large screens */
   width: 100%;
   flex-wrap: wrap; /* Allow content to wrap on small screens */
+  margin: 0 auto; /* Center content on the page */
 }
 
 .description {
   flex: 1;
-  background-color: #fff;
+  background-color: rgb(8, 8, 8);
+  color: wheat;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  min-width: 1360px; /* Set the minimum width for large screens */
+  max-width: 100%; /* Ensure it doesn't exceed the container width */
+  margin-left: 20px; /* Move it to the right */
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
 }
 
 .description h2 {
@@ -30,12 +36,26 @@
 .description p {
   font-size: 16px;
   margin-bottom: 15px;
+  line-height: 1.8;
 }
 
 .season-dropdown {
   margin-top: 10px;
-  padding: 8px;
+  margin-bottom: 30px;
+  padding: 10px;
   font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  appearance: none; /* Remove default dropdown style */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.season-dropdown:focus {
+  outline: none;
+  border-color: #e09f3e;
+  box-shadow: 0 0 5px rgba(224, 159, 62, 0.6);
 }
 
 .episodes ul {
@@ -53,11 +73,41 @@
   color: #007bff;
 }
 
+.episodes h3, h4 {
+  margin-bottom: 30px;
+}
+
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.4); /* Add a dark semi-transparent background */
+  padding: 20px;
+  border-radius: 8px;
+}
+
 .image img {
   max-width: 250px;
   height: auto;
   border-radius: 8px;
   margin-bottom: 20px; /* Add margin for spacing */
+  z-index: 1;
+}
+
+.image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('your-image-path.jpg'); /* Your image path */
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px); /* Apply blur */
+  border-radius: 8px;
+  z-index: 0;
 }
 
 /* Responsive Styles */
@@ -71,6 +121,8 @@
   .description {
     padding: 15px;
     width: 100%;
+    min-width: unset; /* Reset minimum width on smaller screens */
+    margin-left: 0; /* Reset margin */
   }
 
   .description h2 {
@@ -118,33 +170,6 @@
   .image img {
     max-width: 100%;
   }
-}
-
-/* Audio*/
-.audio-player {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #333;
-  color: #fff;
-  padding: 10px;
-  gap: 10px;
-  z-index: 10;
-}
-
-@media (min-width: 768px) {
-  .audio-player {
-    top: 0;
-    bottom: auto;
-  }
-}
-
-.volume-slider {
-  width: 150px;
 }
 
 .play-pause-btn {

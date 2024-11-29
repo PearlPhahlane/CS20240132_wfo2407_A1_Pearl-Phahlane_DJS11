@@ -25,7 +25,7 @@
 
 .search-submit-btn,
 .search-close-btn {
-  background-color: #0056b3;
+  background-color: #e09f3e; /* Set button color to #E09F3E */
   color: white;
   padding: 10px;
   border: none;
@@ -35,14 +35,14 @@
 }
 
 .search-close-btn {
-  background-color: #ccc;
+  background-color: #e09f3e; /* Ensure the close button also uses the same color */
   margin-top: 10px; /* Add space between buttons */
 }
 
 button {
   padding: 10px 20px;
   font-size: 16px;
-  background-color: #e09f3e;
+  background-color: #e09f3e; /* Set button color to #E09F3E */
   color: white;
   border: none;
   border-radius: 4px;
@@ -53,6 +53,7 @@ button {
 button:hover {
   transform: scale(1.1); /* Scale the button by 10% when hovered */
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2); /* Optional: Add a subtle shadow to emphasize the zoom */
+  background-color: #d88f32; /* Darken the background on hover */
 }
 
 /* Search form */

@@ -130,7 +130,11 @@ export default function SearchModal({ isOpen, onClose }) {
           </div>
 
           {/* Show search suggestions */}
-          {loading && <div className="loading">Loading...</div>}
+          {loading && (
+            <div className="loading" style={{ color: "black" }}>
+              Loading...
+            </div>
+          )}
           {error && <div className="error">{error}</div>}
 
           <div className="suggestions-list">

@@ -103,7 +103,8 @@ select {
 }
 
 .pagination button:disabled {
-  background-color: #ccc;
+  background-color: #2c5364;
+  color: #ffd369;
   cursor: not-allowed;
   transform: scale(1);
 }
@@ -116,6 +117,7 @@ select {
 
 /* Responsive tweaks for pagination */
 @media (max-width: 768px) {
+  /* Adjust button size and spacing */
   .pagination button {
     padding: 6px 12px;
     font-size: 14px;
@@ -124,6 +126,35 @@ select {
   .pagination span {
     font-size: 14px;
   }
+
+  /* Stack pagination items vertically if space is tight */
+  .pagination {
+    flex-direction: column;
+    gap: 10px; /* Reduce gap between pagination items */
+    padding: 10px;
+  }
+
+  .pagination button {
+    width: 100%; /* Make buttons fill the width on small screens */
+    font-size: 14px;
+  }
+}
+
+/* Further adjustments for very small screens (like mobile phones) */
+@media (max-width: 480px) {
+  .pagination {
+    gap: 8px; /* Make the gap smaller */
+  }
+
+  .pagination button {
+    padding: 5px 10px;
+    font-size: 12px; /* Smaller font size for very small screens */
+  }
+
+  .pagination span {
+    font-size: 12px;
+  }
+}
 
   /* Make filters stack vertically on small screens */
   .filters {
@@ -137,4 +168,3 @@ select {
     height: 50px;
     font-size: 14px; /* Adjust font size for readability */
   }
-}

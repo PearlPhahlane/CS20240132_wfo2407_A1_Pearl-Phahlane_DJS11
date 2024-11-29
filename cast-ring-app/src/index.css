@@ -126,7 +126,6 @@ main {
   padding: 20px;
 }
 
-
 nav .hamburger {
   display: none;
   flex-direction: column;
@@ -161,17 +160,14 @@ nav ul li {
   display: none;
 }
 
-
-
 footer {
   text-align: center;
   padding: 10px 20px;
   background-color: #f4f4f4;
+  margin-top: auto;  /* This makes the footer stick to the bottom */
 }
 
-
 @media (max-width: 768px) {
-  
   header {
     justify-content: space-between;
   }
@@ -198,7 +194,7 @@ footer {
     display: flex;
   }
 
-   nav ul {
+  nav ul {
     display: none;
     position: fixed; /* Ensures it covers the screen */
     top: 0;
@@ -230,7 +226,6 @@ footer {
   .close-btn {
     display: block; /* Display close button only on small screens */
   }
-  
 
   .media-player {
     display: none; /* Hidden by default on smaller screens */
@@ -274,11 +269,12 @@ footer {
   border-radius: 8px;
   max-width: 500px;
   text-align: center;
+  position: relative; /* Ensures the close button is positioned relative to this container */
 }
 
 .modal-content img {
-  max-width: 100%;
-  max-height: 300px; /* You can adjust the height as needed */
+  max-width: 90%;  /* Shrinks the image a bit */
+  max-height: 250px; /* Reduced height to give more space */
   width: auto;
   height: auto;
   margin-bottom: 20px;
@@ -288,10 +284,17 @@ footer {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: red;
+  background-color: transparent;
   border: none;
-  font-size: 20px;
+  font-size: 30px;
+  color: red;
+  font-weight: bold;
   cursor: pointer;
+  padding: 0;
+}
+
+.modal-close-btn:hover {
+  color: darkred;
 }
 
 button {
@@ -307,6 +310,7 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
 .podcast-item {
   display: flex;
   flex-direction: column;
@@ -327,3 +331,9 @@ button:hover {
   color: #fff;
 }
 
+/* Media Query for small screens */
+@media (max-width: 600px) {
+  .modal-content img {
+    margin-top: 50px; /* Moves the image down to provide space for the close button */
+  }
+}
