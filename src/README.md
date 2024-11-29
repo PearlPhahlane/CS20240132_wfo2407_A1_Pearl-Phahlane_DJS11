@@ -44,7 +44,7 @@ React Icons: For beautiful, easy-to-use icons (like play, pause, volume, etc.).
 ## Deployment
 Cast-Ring is deployed on Netlify. You can access the podcast player directly at:
 
-https://cast-ring.netlify.app
+https://symphonious-lokum-70e9e8.netlify.app/
 
 ## Personal Touch
 I built Cast-Ring to make podcast listening more enjoyable and organized. Whether you’re binging your favorite show or discovering new ones, I wanted a simple, reliable player that works seamlessly across all devices.
