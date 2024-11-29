@@ -19,13 +19,10 @@ To get **Cast-Ring** up and running locally, follow these simple steps:
    ```bash
    https://github.com/PearlPhahlane/CS20240132_wfo2407_A1_Pearl-Phahlane_DJS11.git
 
-2. Navigate into the project directory:
-	cd cast-ring-app
-
-3. Install the required dependencies:
+2. Install the required dependencies:
 	npm install
 
-4. Start the development server:
+3. Start the development server:
 	npm run dev
 	This will open the app in your browser at http://localhost:3000
 
