@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import GenreMapping from "../components/GenreMapping";
 import FavoriteButton from "../components/FavoriteButton";
 import { FaPlay, FaPause } from "react-icons/fa";
+import { usePodcastContext } from "../usePodcastContext";
 import "./podcastDetails.css";
 
 export default function PodcastDetail() {
@@ -15,8 +16,8 @@ export default function PodcastDetail() {
   const [selectedSeason, setSelectedSeason] = useState("");
   const [episodes, setEpisodes] = useState([]);
   const [favorites, setFavorites] = useState([]);
-  const [audioPlaying, setAudioPlaying] = useState(null);
-  const [audioElement, setAudioElement] = useState(null);
+  const { currentEpisode, isPlaying, setIsPlaying, setCurrentEpisode } =
+    usePodcastContext();
 
   useEffect(() => {
     const fetchPodcastData = async () => {
@@ -32,6 +33,7 @@ export default function PodcastDetail() {
         }
         const podcastData = await podcastResponse.json();
         setPodcast(podcastData);
+
 
         const showsResponse = await fetch("https://podcast-api.netlify.app/");
         if (!showsResponse.ok) {
@@ -71,24 +73,21 @@ export default function PodcastDetail() {
   };
 
   const handlePlayPause = (episode) => {
-    if (audioPlaying === episode.title) {
-      // Pause the audio if it's currently playing
-      audioElement.pause();
-      setAudioPlaying(null);
-    } else {
-      // Play the audio if it's not playing
-      if (audioElement) {
-        audioElement.pause(); // Stop any currently playing audio
-      }
-      const newAudioElement = new Audio(episode.file);
-      setAudioElement(newAudioElement);
-      newAudioElement.play();
-      setAudioPlaying(episode.title);
+   console.log("Audio URL:", episode.file);
+   console.log("Episode Title:", episode.title);
+   console.log("Show Name:", podcast.title);
 
-      // Stop playback when the audio ends
-      newAudioElement.addEventListener("ended", () => {
-        setAudioPlaying(null);
+    if (isPlaying && episode.title === currentEpisode?.title) {
+      // Use currentEpisode from context
+      setIsPlaying(false);
+    } else {
+      setCurrentEpisode({
+        episodeNumber: episode.episode,
+        title: episode.title,
+        audioUrl: episode.file,
+        showName: podcast.title
       });
+      setIsPlaying(true);
     }
   };
 
@@ -158,7 +157,7 @@ export default function PodcastDetail() {
                       className="play-pause-btn"
                       onClick={() => handlePlayPause(episode)}
                     >
-                      {audioPlaying === episode.title ? (
+                      {isPlaying && episode.title === currentEpisode?.title ? (
                         <FaPause size={24} />
                       ) : (
                         <FaPlay size={24} />
